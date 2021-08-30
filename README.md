@@ -6,7 +6,7 @@
 
 We follow a [code of conduct](CODE_OF_CONDUCT.md), if you wish to contribute on this project, we strongly advise you to read it.
 
-### Branch naming convention
+## Branch naming convention
 
 - You branch should have a name that reflects it's purpose.
 
@@ -14,7 +14,7 @@ We follow a [code of conduct](CODE_OF_CONDUCT.md), if you wish to contribute on 
 
     Example: `feat_add-image-tag-database-relation`.
 
-### Pull requests (PR)
+## Pull requests (PR)
 
 Pull requests in this project follow two conventions, you will need to use the templates available in the [ISSUE_TEMPLATE](.github/ISSUE_TEMPLATE) folder :
 
@@ -25,11 +25,11 @@ If your pull request is still work in progress, please add "WIP: " (Work In Prog
 
 The naming of the PR should follow the same rules as the [COMMIT_CONVENTIONS](COMMIT_CONVENTIONS.md)
 
-### Continuous Integration (CI)
+## Continuous Integration (CI)
 
 A CI pipeline is configured for this project and is accessible in the [Go-CI](.github/workflows/go-ci.yaml) file.
 
-The pipeline will run 3 different jobs:
+The pipeline will run 4 different jobs:
 
 - Dependencies check
 - Linter
@@ -37,8 +37,6 @@ The pipeline will run 3 different jobs:
 - Tests
 
 The pipeline will be triggered automatically when creating a new **Pull Request** and on each **push** on it. It will also be triggered on push on `main` branch.
-
----
 
 ## Contributors
 
