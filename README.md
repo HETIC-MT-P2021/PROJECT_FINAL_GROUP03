@@ -2,6 +2,9 @@
 
 ## Setup
 
+To invite the discord bot to your server, follow [this link](https://discord.com/api/oauth2/authorize?client_id=882205244170334218&permissions=54177037431&scope=bot), choose your server in the drop down menu, and press the validation button. 
+You can then choose the bot permissions - if you want to change them - before clicking authorize.
+
 ## Contributing
 
 We follow a [code of conduct](CODE_OF_CONDUCT.md), if you wish to contribute on this project, we strongly advise you to read it.
