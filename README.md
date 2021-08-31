@@ -9,15 +9,17 @@ You can then choose the bot permissions - if you want to change them - before cl
 
 We follow a [code of conduct](CODE_OF_CONDUCT.md), if you wish to contribute on this project, we strongly advise you to read it.
 
-## Branch naming convention
+<details>	
+  <summary><b>Branch naming convention</b></summary>
 
 - You branch should have a name that reflects it's purpose.
 
 - It should use the same guidelines as [COMMIT_CONVENTIONS](COMMIT_CONVENTIONS.md) (`feat`, `fix`, `build`, `perf`, `docs`), followed by an underscore (`_`) and a very quick summary of the subject in [kebab case][1].
 
     Example: `feat_add-image-tag-database-relation`.
-
-## Pull requests (PR)
+</details>
+<details>
+  <summary><b>Pull requests and commits</b></summary>
 
 Pull requests in this project follow two conventions, you will need to use the templates available in the [ISSUE_TEMPLATE](.github/ISSUE_TEMPLATE) folder :
 
@@ -27,6 +29,7 @@ Pull requests in this project follow two conventions, you will need to use the t
 If your pull request is still work in progress, please add "WIP: " (Work In Progress) in front of the title, therefor you inform the maintainers that your work is not done, and we can't merge it.
 
 The naming of the PR should follow the same rules as the [COMMIT_CONVENTIONS](COMMIT_CONVENTIONS.md)
+</details>
 
 ## Continuous Integration (CI)
 
