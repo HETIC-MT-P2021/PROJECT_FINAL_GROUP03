@@ -11,27 +11,28 @@ jobs:
   build-backend:
     name: Build
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./back
     steps:
 
     - name: Set up Go 1.17
-      working-directory: ./back
       uses: actions/setup-go@v2
       with:
         go-version: 1.17
       id: go
 
     - name: Check out code into the Go module directory
-      working-directory: ./back
       uses: actions/checkout@v2
 
     - name: Lint with golangci
-      working-directory: ./back
       uses: golangci/golangci-lint-action@v2.5.2
+      working-directory: back
       with:
         skip-go-installation: true
 
     - name: Get dependencies
-      working-directory: ./back
       run: |
         go get -v -t -d ./...
         if [ -f Gopkg.toml ]; then
@@ -40,11 +41,7 @@ jobs:
         fi
 
     - name: Build
-      working-directory: ./back
       run: go build -v .
 
     - name: Test
-      working-directory: ./back
       run: go test -v ./test
-
-build-frontend:
