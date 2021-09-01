@@ -41,7 +41,7 @@ func Init() error {
 		tmpDb, err = gorm.Open("postgres", dbURL)
 
 		if err != nil {
-			log.Warn("db connection failed. (%s/5)", test)
+			log.Warnf("db connection failed. (%d/5)", test)
 			time.Sleep(5 * time.Second)
 			continue
 		}
