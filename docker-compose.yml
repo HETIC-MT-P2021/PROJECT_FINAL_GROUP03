@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+  back:
+    build: 
+      context: .
+      dockerfile: docker/back/Dockerfile
+    ports: 
+      - 8000:8000
+    restart: on-failure
+    volumes:
+      - ./back:/go/src/github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back
+    depends_on:
+      - postgres
+    networks:
+      - backend
+  
+  front:
+    build: 
+      context: .
+      dockerfile: docker/front/Dockerfile
+    ports: 
+      - 8080:8080
+    restart: on-failure
+    volumes:
+      - ./front:/app
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - DATABASE_HOST=${DB_HOST}
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - backend
+    
+  adminer:
+    image: adminer
+    ports:
+      - 3000:8080
+    depends_on:
+      - postgres
+    networks:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  api:
+  postgres:
+  elasticsearch-data:
+    driver: local
+  rmq_data:
+    driver: local
+
+# Networks to be created to facilitate communication between containers
+networks:
+  backend:
+    driver: bridge
