@@ -46,8 +46,12 @@ func main() {
 	}()
 
 	// ----------------- CLOSE APP -----------------
-	quit := make(chan os.Signal)
+	quit := make(chan os.Signal, 2)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-	<-quit
+	consume(quit)
 	log.Info("Shutting down server...")
+}
+
+func consume(ch <-chan os.Signal) os.Signal {
+	return <-ch
 }
