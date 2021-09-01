@@ -1,12 +1,5 @@
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  margin: 0;
-}
-
 .App-body {
-  background-color: #7D6D61;
   height: calc(100vh - 56px);
   width: 100vw;
+  background-color: #3D3B3C;
 }
