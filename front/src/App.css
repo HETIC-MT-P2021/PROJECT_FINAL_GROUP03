@@ -1,0 +1,5 @@
+.App-body {
+  height: calc(100vh - 56px);
+  width: 100vw;
+  background-color: #3D3B3C;
+}
