@@ -13,13 +13,15 @@ You can then choose the bot permissions - if you want to change them - before cl
 
 ### Run project locally
 
-the following make commands are available : 
+the following make commands are available :
 
 |command|description|
 |-|-|
 | **make start**| start the project with docker compose |
 | **make stop**| stop the project |
 | **make log**| follow log output |
+| **make init**| same as start, but also copy files |
+| **make copy-files**| copy env files to the right directories, concat global env to other env files |
 ## Contributing
 
 We follow a [code of conduct](CODE_OF_CONDUCT.md), if you wish to contribute on this project, we strongly advise you to read it.
