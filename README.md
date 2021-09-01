@@ -1,5 +1,9 @@
 # PROJECT_FINAL_GROUP03
 
+[![CodeQL](https://github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/actions/workflows/codeql-analysis.yml)
+
+[![Lint, Build & Tests - Go](https://github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/actions/workflows/go-ci.yml/badge.svg)](https://github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/actions/workflows/go-ci.yml)
+
 ## Setup
 
 ### Invite bot
