@@ -6,7 +6,7 @@ FROM golang:1.15-alpine
 ENV GO111MODULE=on
 
 # Set the current working with go absolute path
-WORKDIR /go/src/github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP_3/back
+WORKDIR /go/src/github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back
 
 # ----- INSTALL -----
 
