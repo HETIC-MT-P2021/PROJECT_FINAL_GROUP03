@@ -11,14 +11,14 @@ func InitializeBot() (*discordgo.Session, error) {
 	if !tokenExist {
 		log.Fatal("Missing environment variable : DISCORD_TOKEN")
 	}
-	
+
 	// Create a new Discord session using the provided bot token.
 	dg, err := discordgo.New("Bot " + discordToken)
 	if err != nil {
 		log.Error("Error creating Discord session, ", err)
 		return nil, err
 	}
-	
+
 	// Register the messageCreate func as a callback for MessageCreate events.
 	dg.AddHandler(MessageCreate)
 
