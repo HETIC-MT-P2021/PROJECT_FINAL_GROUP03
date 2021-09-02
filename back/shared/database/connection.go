@@ -21,7 +21,7 @@ var Db *gorm.DB
 type Config struct {
 	User     string `env:"DB_USER"`
 	Password string `env:"DB_PASSWORD"`
-	Port     uint64    `env:"DB_PORT" envDefault:"5432"`
+	Port     uint64 `env:"DB_PORT" envDefault:"5432"`
 	Host     string `env:"DB_HOST"`
 	Name     string `env:"DB_NAME"`
 }
@@ -60,18 +60,17 @@ func Init() error {
 
 func getConfig() (Config, error) {
 	var err error
-	cfg := Config {
-		User: 		env.GetVariable("DB_USER"),
+	cfg := Config{
+		User:     env.GetVariable("DB_USER"),
 		Password: env.GetVariable("DB_PASSWORD"),
-		Port: 		helpers.ParseStringToUint64(env.GetVariable("DB_PORT")),
-		Name: 		env.GetVariable("DB_NAME"),
-		Host: 		env.GetVariable("DB_HOST"),
+		Port:     helpers.ParseStringToUint64(env.GetVariable("DB_PORT")),
+		Name:     env.GetVariable("DB_NAME"),
+		Host:     env.GetVariable("DB_HOST"),
 	}
-	if (
-		cfg.User == "" ||
+	if cfg.User == "" ||
 		cfg.Password == "" ||
 		cfg.Host == "" ||
-		cfg.Name == "") {
+		cfg.Name == "" {
 		err = errors.New("Missing env variables")
 	}
 
