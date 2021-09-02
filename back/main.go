@@ -7,11 +7,12 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/gin-gonic/gin"
-
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/bot/discord"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/database"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/helpers"
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/infrastructure"
 	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/api/routes"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/env"
@@ -38,6 +39,11 @@ func main() {
 		MaxAge:           12 * time.Hour,
 	}))
 	routes.Initialize(router)
+
+	infrastructure.InitCommandBus()
+	if _, err := discord.InitializeBot(); err != nil {
+		log.Fatal(err)
+	}
 
 	go func() {
 		if err := router.Run(":8000"); err != nil && err != http.ErrServerClosed {
