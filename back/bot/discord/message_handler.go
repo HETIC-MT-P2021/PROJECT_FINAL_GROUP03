@@ -6,6 +6,9 @@ import (
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/bot/domain"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/cqrs"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/infrastructure"
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/models"
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/repositories"
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/services/accounts"
 	"github.com/bwmarrin/discordgo"
 	log "github.com/sirupsen/logrus"
 )
@@ -17,6 +20,8 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	if m.Author.ID == s.State.User.ID {
 		return
 	}
+	
+	signUpifNotRegistered(m)
 
 	if !strings.HasPrefix(strings.ToLower(m.Content), "/admin") {
 		return
@@ -49,5 +54,18 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			log.Error("sendMessageErr: ", err)
 		}
 		return
+	}
+}
+
+func signUpifNotRegistered(m *discordgo.MessageCreate) {
+	if !accounts.IsRegistered(m.Author.ID) {
+		account := models.Account{
+			Name:      m.Author.Username,
+			DiscordID: m.Author.ID,
+		}
+
+		if err := repositories.PersistAccount(&account); err != nil {
+			log.Error(err)
+		}
 	}
 }
