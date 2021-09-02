@@ -1,5 +1,9 @@
 # PROJECT_FINAL_GROUP03
 
+[![CodeQL](https://github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/actions/workflows/codeql-analysis.yml)
+
+[![Lint, Build & Tests - Go](https://github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/actions/workflows/go-ci.yml/badge.svg)](https://github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/actions/workflows/go-ci.yml)
+
 ## Setup
 
 ### Invite bot
@@ -18,6 +22,21 @@ the following make commands are available :
 | **make log**| follow log output |
 | **make init**| same as start, but also copy files |
 | **make copy-files**| copy env files to the right directories, concat global env to other env files |
+
+## Bot commands
+
+Once the bot is in the discord server, you can address a message to the bot by beginning your message with `/admin`
+
+<details>
+  <summary><b>Login command</b></summary>
+
+  ```
+    /admin login
+  ```
+
+  You will receive a private message containing a link to the front-end interface, allowing you to manage your server.
+</details>
+
 ## Contributing
 
 We follow a [code of conduct](CODE_OF_CONDUCT.md), if you wish to contribute on this project, we strongly advise you to read it.
