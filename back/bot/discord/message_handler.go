@@ -61,7 +61,27 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	case "set-welcome-message":
 		params := params[2:]
 		message := strings.Join(params, " ")
-		log.Info("set welcome message to ", message)
+		cmd := cqrs.NewCommandMessage(&domain.ChangeWelcomeMessageCommand{
+			Session:   				s,
+			ServerDiscordID:  m.GuildID,
+			WelcomeMessage: 	message,
+		})
+		
+		_, err := infrastructure.CommandBus.Dispatch(cmd)
+		if err != nil {
+			log.Error(err)
+			_, err := s.ChannelMessageSend(m.ChannelID, "Une erreur est survenue.")
+
+			if err != nil {
+				log.Error("sendMessageErr: ", err)
+			}
+		} else {
+			_, err := s.ChannelMessageSend(m.ChannelID, "Nouveau message sauvegardé")
+
+			if err != nil {
+				log.Error("sendMessageErr: ", err)
+			}
+		}
 		break
 	}
 }
@@ -76,22 +96,5 @@ func signUpifNotRegistered(s *discordgo.Session) {
 		if err := repositories.PersistAccount(&account); err != nil {
 			log.Error(err)
 		}
-	}
-	guilds, err := s.UserGuilds(100, "", "")
-	if err != nil {
-		log.Error(err)
-	}
-	log.Info(s.State.User.Username)
-	log.Info("User guilds : ")
-	for _, guild := range guilds {
-		g, err := s.Guild(guild.ID)
-		if err != nil {
-			return
-		}
-		log.Info(g.Name)
-		for _, m := range g.Members {
-			log.Info(m.User.Username)
-		}
-		log.Info("--- ---")
 	}
 }
