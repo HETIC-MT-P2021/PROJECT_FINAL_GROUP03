@@ -7,7 +7,7 @@ import (
 
 // FindAccountByDiscordID returns first user found with discord ID like account.DiscordID
 func FindAccountByDiscordID(account *models.Account) error {
-	return database.Db.Debug().First(&account).Where("discord_id = ?", account.DiscordID).Error
+	return database.Db.Debug().Where("discord_id = ?", account.DiscordID).First(&account).Error
 }
 
 // PersistAccount persist account in database

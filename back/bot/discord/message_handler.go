@@ -20,16 +20,19 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	if m.Author.ID == s.State.User.ID {
 		return
 	}
-	
-	signUpifNotRegistered(m)
+	signUpifNotRegistered(s)
 
 	if !strings.HasPrefix(strings.ToLower(m.Content), "/admin") {
 		return
 	}
-	commandName := strings.Split(m.Content, " ")[1]
+	params := strings.Split(m.Content, " ")
+	if len(params) < 2 {
+		return
+	}
+	commandName := params[1]
 
-	var err error
-	if commandName == "login" {
+	switch commandName {
+	case "login":
 		channel, err := s.UserChannelCreate(m.Author.ID)
 		if err != nil {
 			log.Error(err)
@@ -44,28 +47,51 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		if _, err = infrastructure.CommandBus.Dispatch(cmd); err != nil {
 			log.Error(err)
 		}
-	}
-
-	if err != nil {
-		log.Error(err)
-		_, err := s.ChannelMessageSend(m.ChannelID, "Une erreur est survenue.")
 
 		if err != nil {
-			log.Error("sendMessageErr: ", err)
+			log.Error(err)
+			_, err := s.ChannelMessageSend(m.ChannelID, "Une erreur est survenue.")
+
+			if err != nil {
+				log.Error("sendMessageErr: ", err)
+			}
+			return
 		}
-		return
+		break
+	case "set-welcome-message":
+		params := params[2:]
+		message := strings.Join(params, " ")
+		log.Info("set welcome message to ", message)
+		break
 	}
 }
 
-func signUpifNotRegistered(m *discordgo.MessageCreate) {
-	if !accounts.IsRegistered(m.Author.ID) {
+func signUpifNotRegistered(s *discordgo.Session) {
+	if !accounts.IsRegistered(s.State.User.ID) {
 		account := models.Account{
-			Name:      m.Author.Username,
-			DiscordID: m.Author.ID,
+			Name:      s.State.User.Username,
+			DiscordID: s.State.User.ID,
 		}
 
 		if err := repositories.PersistAccount(&account); err != nil {
 			log.Error(err)
 		}
+	}
+	guilds, err := s.UserGuilds(100, "", "")
+	if err != nil {
+		log.Error(err)
+	}
+	log.Info(s.State.User.Username)
+	log.Info("User guilds : ")
+	for _, guild := range guilds {
+		g, err := s.Guild(guild.ID)
+		if err != nil {
+			return
+		}
+		log.Info(g.Name)
+		for _, m := range g.Members {
+			log.Info(m.User.Username)
+		}
+		log.Info("--- ---")
 	}
 }

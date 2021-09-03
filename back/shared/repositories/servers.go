@@ -7,7 +7,7 @@ import (
 
 // FindServerByDiscordID returns first user found with discord ID like server.DiscordID
 func FindServerByDiscordID(server *models.Server) error {
-	return database.Db.Debug().First(&server).Where("discord_id = ?", server.DiscordID).Error
+	return database.Db.Debug().Where("discord_id = ?", server.DiscordID).First(&server).Error
 }
 
 // PersistServer persist server in database

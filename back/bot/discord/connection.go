@@ -21,7 +21,7 @@ func InitializeBot() (*discordgo.Session, error) {
 
 	// Register the messageCreate func as a callback for MessageCreate events.
 	dg.AddHandler(MessageCreate)
-
+	dg.AddHandler(GuildMemberAdd)
 	// In this example, we only care about receiving message events.
 	dg.Identify.Intents = discordgo.MakeIntent(discordgo.IntentsGuildMessages)
 
@@ -31,6 +31,9 @@ func InitializeBot() (*discordgo.Session, error) {
 		log.Error("Error opening discord connection, ", err)
 		return nil, err
 	}
+
+	// Check for new guilds
+	checkForGuilds(dg)
 
 	return dg, nil
 }
