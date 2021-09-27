@@ -20,6 +20,6 @@ func ChangeWelcomeMessage(serverID, newMessage string, s *discordgo.Session) err
 	if err != nil {
 		log.Error(err)
 	}
-	
+
 	return err
 }

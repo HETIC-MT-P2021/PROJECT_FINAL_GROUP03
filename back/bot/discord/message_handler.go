@@ -57,16 +57,15 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			}
 			return
 		}
-		break
 	case "set-welcome-message":
 		params := params[2:]
 		message := strings.Join(params, " ")
 		cmd := cqrs.NewCommandMessage(&domain.ChangeWelcomeMessageCommand{
-			Session:   				s,
-			ServerDiscordID:  m.GuildID,
-			WelcomeMessage: 	message,
+			Session:         s,
+			ServerDiscordID: m.GuildID,
+			WelcomeMessage:  message,
 		})
-		
+
 		_, err := infrastructure.CommandBus.Dispatch(cmd)
 		if err != nil {
 			log.Error(err)
@@ -82,7 +81,6 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 				log.Error("sendMessageErr: ", err)
 			}
 		}
-		break
 	}
 }
 

@@ -1,8 +1,8 @@
 package accounts
 
 import (
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/repositories"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/models"
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/repositories"
 	log "github.com/sirupsen/logrus"
 )
 

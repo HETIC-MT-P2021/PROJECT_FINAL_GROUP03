@@ -16,7 +16,7 @@ func Initialize(r *gin.Engine) {
 	v1 := api.Group("/v1")
 
 	v1.GET("/", controllers.SayHello)
-	
+
 	servers := v1.Group("/servers")
 	{
 		servers.PUT("/:id/welcome-message", controllers.UpdateWelcomeMessage)

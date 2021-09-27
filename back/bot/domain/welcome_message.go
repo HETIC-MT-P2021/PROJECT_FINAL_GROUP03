@@ -8,8 +8,8 @@ import (
 
 type ChangeWelcomeMessageCommand struct {
 	ServerDiscordID,
-	WelcomeMessage 		string
-	Session 					*discordgo.Session
+	WelcomeMessage string
+	Session *discordgo.Session
 }
 
 type ChangeWelcomeMessageCommandHandler struct{}

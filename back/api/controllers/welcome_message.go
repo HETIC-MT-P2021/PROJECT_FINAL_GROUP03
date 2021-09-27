@@ -19,11 +19,11 @@ func UpdateWelcomeMessage(c *gin.Context) {
 	log.Info("new message : ", form.WelcomeMessage)
 
 	cmd := cqrs.NewCommandMessage(&domain.ChangeWelcomeMessageCommand{
-		Session:   				nil,
-		ServerDiscordID:  c.Param("id"),
-		WelcomeMessage: 	form.WelcomeMessage,
+		Session:         nil,
+		ServerDiscordID: c.Param("id"),
+		WelcomeMessage:  form.WelcomeMessage,
 	})
-	
+
 	_, err := infrastructure.CommandBus.Dispatch(cmd)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, "couldn't execute your demand")

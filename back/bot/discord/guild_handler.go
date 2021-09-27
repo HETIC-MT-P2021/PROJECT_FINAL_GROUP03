@@ -10,7 +10,7 @@ import (
 func GuildMemberAdd(s *discordgo.Session, data *discordgo.GuildMemberAdd) {
 	log.Info("new user")
 	// Get welcome message and send message with it
-	server := models.Server {
+	server := models.Server{
 		DiscordID: data.GuildID,
 	}
 	if err := repositories.FindServerByDiscordID(&server); err != nil {
@@ -25,5 +25,5 @@ func GuildMemberAdd(s *discordgo.Session, data *discordgo.GuildMemberAdd) {
 	}
 	if _, err := s.ChannelMessageSend(channel.ID, server.WelcomeMessage); err != nil {
 		log.Error(err)
-	} 
+	}
 }
