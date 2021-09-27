@@ -16,7 +16,7 @@ func ChangeWelcomeMessage(serverID, newMessage string, s *discordgo.Session) err
 
 	// Update server
 	server.WelcomeMessage = newMessage
-	err := repositories.UpdateServer(&server)
+	err := repositories.UpdateServerMessage(&server)
 	if err != nil {
 		log.Error(err)
 	}
