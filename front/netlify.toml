@@ -1,0 +1,4 @@
+[build]
+base="/front"
+publish="/build"
+command="npm install && yarn start"
