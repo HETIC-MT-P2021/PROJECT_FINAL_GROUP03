@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 	"os/signal"
@@ -33,7 +34,7 @@ func main() {
 	}
 
 	go func() {
-		if err := router.Run(":8000"); err != nil && err != http.ErrServerClosed {
+		if err := router.Run(fmt.Sprintf(":%s", env.GetVariable("PORT"))); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("listen: %s\n", err)
 		}
 	}()
