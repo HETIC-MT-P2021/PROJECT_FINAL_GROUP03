@@ -4,14 +4,12 @@ import (
 	"fmt"
 	"time"
 
+	"errors"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/env"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/helpers"
-	"github.com/jinzhu/gorm"
 	log "github.com/sirupsen/logrus"
-
-	"errors"
-
-	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 // Db is the database object
@@ -38,7 +36,7 @@ func Init() error {
 
 	// Try connecting database 5 times
 	for test := 1; test <= 5; test++ {
-		tmpDb, err = gorm.Open("postgres", dbURL)
+		tmpDb, err = gorm.Open(postgres.Open(dbURL), &gorm.Config{})
 
 		if err != nil {
 			log.Warnf("db connection failed. (%d/5)", test)
