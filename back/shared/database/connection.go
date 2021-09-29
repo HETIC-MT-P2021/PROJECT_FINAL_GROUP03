@@ -22,6 +22,7 @@ type Config struct {
 	Port     uint64 `env:"DB_PORT" envDefault:"5432"`
 	Host     string `env:"DB_HOST"`
 	Name     string `env:"DB_NAME"`
+	DbURL    string `env:"DB_URL"`
 }
 
 // Init Initializes a db connection
@@ -31,12 +32,11 @@ func Init() error {
 		return err
 	}
 
-	dbURL := fmt.Sprintf("host=%s port=%d user=%s "+"password=%s dbname=%s sslmode=disable", cfg.Host, cfg.Port, cfg.User, cfg.Password, cfg.Name)
+	_ = fmt.Sprintf("host=%s port=%d user=%s "+"password=%s dbname=%s sslmode=disable", cfg.Host, cfg.Port, cfg.User, cfg.Password, cfg.Name)
 	var tmpDb *gorm.DB
-
 	// Try connecting database 5 times
 	for test := 1; test <= 5; test++ {
-		tmpDb, err = gorm.Open(postgres.Open(dbURL), &gorm.Config{})
+		tmpDb, err = gorm.Open(postgres.Open(cfg.DbURL), &gorm.Config{})
 
 		if err != nil {
 			log.Warnf("db connection failed. (%d/5)", test)
@@ -64,6 +64,7 @@ func getConfig() (Config, error) {
 		Port:     helpers.ParseStringToUint64(env.GetVariable("DB_PORT")),
 		Name:     env.GetVariable("DB_NAME"),
 		Host:     env.GetVariable("DB_HOST"),
+		DbURL:    env.GetVariable("DB_URL"),
 	}
 	if cfg.User == "" ||
 		cfg.Password == "" ||
