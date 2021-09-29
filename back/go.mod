@@ -1,3 +1,4 @@
+// +heroku goVersion go1.17
 module github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back
 
 go 1.15
