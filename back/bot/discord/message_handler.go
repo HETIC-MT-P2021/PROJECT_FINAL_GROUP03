@@ -20,7 +20,7 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	if m.Author.ID == s.State.User.ID {
 		return
 	}
-	signUpifNotRegistered(s)
+	signUpifNotRegistered(m)
 
 	if !strings.HasPrefix(strings.ToLower(m.Content), "/admin") {
 		return
@@ -84,15 +84,35 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	}
 }
 
-func signUpifNotRegistered(s *discordgo.Session) {
-	if !accounts.IsRegistered(s.State.User.ID) {
+func signUpifNotRegistered(m *discordgo.MessageCreate) {
+	if !accounts.IsRegistered(m.Author.ID) {
 		account := models.Account{
-			Name:      s.State.User.Username,
-			DiscordID: s.State.User.ID,
+			Name:      m.Author.Username,
+			DiscordID: m.Author.ID,
 		}
 
 		if err := repositories.PersistAccount(&account); err != nil {
 			log.Error(err)
+			return
 		}
+	}
+
+	account := models.Account{
+		DiscordID: m.Author.ID,
+	}
+	if err := repositories.FindAccountByDiscordID(&account); err != nil {
+		log.Error("account not found : ", err)
+		return
+	}
+	server := models.Server{
+		DiscordID: m.GuildID,
+	}
+	if err := repositories.FindServerByDiscordID(&server); err != nil {
+		log.Error("server not found", err)
+		return
+	}
+	account.Servers = append(account.Servers, &server)
+	if err := repositories.UpdateAccount(&account); err != nil {
+		log.Error("couldn't update account servers", err)
 	}
 }
