@@ -14,3 +14,7 @@ func FindAccountByDiscordID(account *models.Account) error {
 func PersistAccount(account *models.Account) error {
 	return database.Db.Debug().Create(account).Error
 }
+
+func UpdateAccount(account *models.Account) error {
+	return database.Db.Debug().Save(&account).Error
+}
