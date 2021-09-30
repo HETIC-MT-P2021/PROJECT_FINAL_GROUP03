@@ -24,3 +24,10 @@ tmp
 .env
 back/.env
 front/.env
+
+# Local .terraform directories
+deploy-back/.terraform/*
+
+# .tfstate files
+deploy-back/*.tfstate
+deploy-back/*.tfstate.*

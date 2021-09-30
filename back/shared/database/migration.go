@@ -8,5 +8,8 @@ import (
 // Migrate executes migrations once the db is connected
 func Migrate() {
 	log.Info("Executing migrations...")
-	Db.AutoMigrate(&models.Account{}, &models.Server{})
+	err := Db.AutoMigrate(&models.Account{}, &models.Server{})
+	if err != nil {
+		log.Warnf("Could not execute migrations")
+	}
 }
