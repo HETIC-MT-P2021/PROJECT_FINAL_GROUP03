@@ -3,8 +3,12 @@ name: Lint, Build & Tests - Go
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'back/**'
   pull_request:
     branches: [ main, develop ]
+    paths:
+      - 'back/**'
 
 jobs:
 
