@@ -1,0 +1,1 @@
+database_url = "postgres://bswuaejxulggog:941e39d7fe76e50da1e71b70ab7c91f449d396e3336ab7f4852969244b658ede@ec2-52-213-119-221.eu-west-1.compute.amazonaws.com:5432/d3i3inh36apvu9"
