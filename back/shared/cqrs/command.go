@@ -6,6 +6,7 @@ import (
 )
 
 // CommandMessage is the interface for all messages conveying in the command bus
+// test CI
 type CommandMessage interface {
 	CommandType() string
 	Payload() interface{}
