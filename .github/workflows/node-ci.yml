@@ -1,11 +1,15 @@
 name: Lint, Build & Tests - NodeJs
 
+
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'front/**'
   pull_request:
     branches: [ main, develop ]
-
+    paths:
+      - 'front/**'
 jobs:
   build:
     runs-on: ubuntu-latest
