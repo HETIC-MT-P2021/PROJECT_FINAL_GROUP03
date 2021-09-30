@@ -15,4 +15,7 @@ func InitCommandBus() {
 	if err := CommandBus.RegisterHandler(&domain.SendInterfaceLinkCommandHandler{}, &domain.SendInterfaceLinkCommand{}); err != nil {
 		log.Error("cannot register handler : ", err)
 	}
+	if err := CommandBus.RegisterHandler(&domain.ChangeWelcomeMessageCommandHandler{}, &domain.ChangeWelcomeMessageCommand{}); err != nil {
+		log.Error("cannot register handler : ", err)
+	}
 }
