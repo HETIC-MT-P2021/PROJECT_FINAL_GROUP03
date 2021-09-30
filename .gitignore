@@ -26,8 +26,8 @@ back/.env
 front/.env
 
 # Local .terraform directories
-**/.terraform/*
+deploy-back/.terraform/*
 
 # .tfstate files
-*.tfstate
-*.tfstate.*
+deploy-back/*.tfstate
+deploy-back/*.tfstate.*
