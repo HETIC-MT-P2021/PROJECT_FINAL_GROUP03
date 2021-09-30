@@ -18,3 +18,10 @@ func PersistAccount(account *models.Account) error {
 func UpdateAccount(account *models.Account) error {
 	return database.Db.Debug().Save(&account).Error
 }
+
+func FindAccountServers(account *models.Account) ([]models.Server, error) {
+	var servers []models.Server
+	err := database.Db.Debug().Model(&account).Association("Servers").Find(&servers).Error
+
+	return servers, err
+}

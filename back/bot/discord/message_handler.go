@@ -8,6 +8,7 @@ import (
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/infrastructure"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/models"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/repositories"
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/security"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/services/accounts"
 	"github.com/bwmarrin/discordgo"
 	log "github.com/sirupsen/logrus"
@@ -85,10 +86,10 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 }
 
 func signUpifNotRegistered(m *discordgo.MessageCreate) {
-	if !accounts.IsRegistered(m.Author.ID) {
+	if !accounts.IsRegistered(security.HashString(m.Author.ID)) {
 		account := models.Account{
 			Name:      m.Author.Username,
-			DiscordID: m.Author.ID,
+			DiscordID: security.HashString(m.Author.ID),
 		}
 
 		if err := repositories.PersistAccount(&account); err != nil {
@@ -98,7 +99,7 @@ func signUpifNotRegistered(m *discordgo.MessageCreate) {
 	}
 
 	account := models.Account{
-		DiscordID: m.Author.ID,
+		DiscordID: security.HashString(m.Author.ID),
 	}
 	if err := repositories.FindAccountByDiscordID(&account); err != nil {
 		log.Error("account not found : ", err)
