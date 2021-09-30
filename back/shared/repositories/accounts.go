@@ -21,7 +21,7 @@ func UpdateAccount(account *models.Account) error {
 
 func FindAccountServers(account *models.Account) ([]models.Server, error) {
 	var servers []models.Server
-	err := database.Db.Debug().Model(&account).Association("Servers").Find(&servers).Error
+	err := database.Db.Debug().Model(&account).Association("Servers").Find(&servers)
 
 	return servers, err
 }
