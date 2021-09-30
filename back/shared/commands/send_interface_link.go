@@ -1,8 +1,8 @@
-package domain
+package commands
 
 import (
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/bot/services"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/cqrs"
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/services"
 	"github.com/bwmarrin/discordgo"
 )
 
