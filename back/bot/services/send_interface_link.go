@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/env"
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/security"
 	"github.com/bwmarrin/discordgo"
 )
 
@@ -20,6 +21,7 @@ func SendInterfaceLink(s *discordgo.Session, userID, channelID string) error {
 
 func generateLink(authorID string) string {
 	serverAdress := env.GetVariable("SERVER_ADDR_FRONT")
+	authorIDHash := security.HashString(authorID)
 
-	return serverAdress + "?uid=" + authorID
+	return serverAdress + "/login/" + authorIDHash
 }
