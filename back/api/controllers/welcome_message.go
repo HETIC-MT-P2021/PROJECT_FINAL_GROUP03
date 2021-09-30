@@ -3,32 +3,17 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/api/domain"
-	botDomain "github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/bot/domain"
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/commands"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/cqrs"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/infrastructure"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/models"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/repositories"
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/services"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 )
 
 func UpdateWelcomeMessage(c *gin.Context) {
-	server := models.Server{
-		DiscordID: c.Param("id"),
-	}
-	if err := repositories.FindServerByDiscordID(&server); err != nil {
-		c.JSON(http.StatusNotFound, "server does not exist")
-		return
-	}
-	payload, ok := c.Get("account")
-	if !ok {
-		c.JSON(http.StatusUnauthorized, "user not found")
-		return
-	}
-	account := payload.(models.Account)
-	if !domain.HasRight(&account, &server) {
-		c.JSON(http.StatusUnauthorized, "you cannot edit this server welcome message")
+	if !services.HasRightOnServerFromContext(c) {
+		c.JSON(http.StatusUnauthorized, "you are not allowed to do this")
 		return
 	}
 	var form WelcomeMessageForm
@@ -37,7 +22,7 @@ func UpdateWelcomeMessage(c *gin.Context) {
 		return
 	}
 	log.Info("new message : ", form.WelcomeMessage)
-	cmd := cqrs.NewCommandMessage(&botDomain.ChangeWelcomeMessageCommand{
+	cmd := cqrs.NewCommandMessage(&commands.ChangeWelcomeMessageCommand{
 		Session:         nil,
 		ServerDiscordID: c.Param("id"),
 		WelcomeMessage:  form.WelcomeMessage,

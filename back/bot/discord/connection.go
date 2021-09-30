@@ -1,6 +1,7 @@
 package discord
 
 import (
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/bot/handlers"
 	"github.com/bwmarrin/discordgo"
 	log "github.com/sirupsen/logrus"
 	"os"
@@ -20,8 +21,8 @@ func InitializeBot() (*discordgo.Session, error) {
 	}
 
 	// Register the messageCreate func as a callback for MessageCreate events.
-	dg.AddHandler(MessageCreate)
-	dg.AddHandler(GuildMemberAdd)
+	dg.AddHandler(handlers.MessageCreate)
+	dg.AddHandler(handlers.GuildMemberAdd)
 	// In this example, we only care about receiving message events.
 	dg.Identify.Intents = discordgo.MakeIntent(discordgo.IntentsAll)
 

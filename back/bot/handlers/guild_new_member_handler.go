@@ -1,4 +1,4 @@
-package discord
+package handlers
 
 import (
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/models"
@@ -8,7 +8,6 @@ import (
 )
 
 func GuildMemberAdd(s *discordgo.Session, data *discordgo.GuildMemberAdd) {
-	log.Info("new user")
 	// Get welcome message and send message with it
 	server := models.Server{
 		DiscordID: data.GuildID,

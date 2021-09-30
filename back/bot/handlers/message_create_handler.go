@@ -1,15 +1,15 @@
-package discord
+package handlers
 
 import (
 	"strings"
 
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/bot/domain"
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/commands"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/cqrs"
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/domain"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/infrastructure"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/models"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/repositories"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/security"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/services/accounts"
 	"github.com/bwmarrin/discordgo"
 	log "github.com/sirupsen/logrus"
 )
@@ -40,7 +40,7 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			return
 		}
 
-		cmd := cqrs.NewCommandMessage(&domain.SendInterfaceLinkCommand{
+		cmd := cqrs.NewCommandMessage(&commands.SendInterfaceLinkCommand{
 			Session:   s,
 			UserID:    m.Author.ID,
 			ChannelID: channel.ID,
@@ -61,7 +61,7 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	case "set-welcome-message":
 		params := params[2:]
 		message := strings.Join(params, " ")
-		cmd := cqrs.NewCommandMessage(&domain.ChangeWelcomeMessageCommand{
+		cmd := cqrs.NewCommandMessage(&commands.ChangeWelcomeMessageCommand{
 			Session:         s,
 			ServerDiscordID: m.GuildID,
 			WelcomeMessage:  message,
@@ -86,7 +86,7 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 }
 
 func signUpifNotRegistered(m *discordgo.MessageCreate) {
-	if !accounts.IsRegistered(security.HashString(m.Author.ID)) {
+	if !domain.Account.IsRegistered(security.HashString(m.Author.ID)) {
 		account := models.Account{
 			Name:      m.Author.Username,
 			DiscordID: security.HashString(m.Author.ID),
