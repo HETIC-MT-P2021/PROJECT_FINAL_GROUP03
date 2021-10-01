@@ -12,6 +12,7 @@ terraform {
 resource "heroku_config" "global" {
   vars = {
     LOG_LEVEL = "info"
+    ENV = var.environment
   }
 
   sensitive_vars = {
@@ -21,7 +22,7 @@ resource "heroku_config" "global" {
 
 // Heroku app creation
 resource "heroku_app" "final_project_group3" {
-  name   = var.app_name
+  name   = var.app_name + "-" + heroku_config.global.vars.ENV
   config_vars = {
     GOVERSION: var.go_version
     APP_BASE: "back"

@@ -22,3 +22,9 @@ variable "go_version" {
   type = string
   default = 1.17
 }
+
+variable "environment" {
+  description = "App environment"
+  type = string
+}
+
