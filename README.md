@@ -4,6 +4,13 @@
 
 [![Lint, Build & Tests - Go](https://github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/actions/workflows/go-ci.yml/badge.svg)](https://github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/actions/workflows/go-ci.yml)
 
+[![Lint, Build & Tests - NodeJs](https://github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/actions/workflows/node-ci.yml/badge.svg?branch=main)](https://github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/actions/workflows/node-ci.yml)
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/6832d952-0846-49fa-b4b9-b2161edb643a/deploy-status)](https://app.netlify.com/sites/go-bot-front/deploys)
+
+![Heroku](https://pyheroku-badge.herokuapp.com/?app=finalprojectgroup3-prod&style=flat)
+
+
 ## Setup
 
 ### Invite bot

@@ -1,20 +1,27 @@
 name: Netlify-Preview
 
 on:
-  pull_request:
-    branches: [main, develop]
+  push:
+    branches:
+      - develop
     paths:
-    - "./front"
+      - 'front/**'
+  workflow_run:
+    workflows: [ "Lint, Build & Tests - NodeJs" ]
+    types:
+      - completed
 
 jobs:
-
   build-deploy-preview:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Netlify Actions setup
-      uses: nwtgck/actions-netlify@v1.2.2
-      with:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Netlify prevew deploy
+        uses: nwtgck/actions-netlify@v1.2.2
+        with:
           publish-dir: './front/build'
           production-branch: main
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -23,9 +30,8 @@ jobs:
           enable-commit-comment: false
           overwrites-pull-request-comment: true
           netlify-config-path: './front/netlify.toml'
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-      timeout-minutes: 1
-    
-      
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1
+

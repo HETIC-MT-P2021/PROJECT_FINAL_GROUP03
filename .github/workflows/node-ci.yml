@@ -1,6 +1,5 @@
 name: Lint, Build & Tests - NodeJs
 
-
 on:
   push:
     branches: [ main ]

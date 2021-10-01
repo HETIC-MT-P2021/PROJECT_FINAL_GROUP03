@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/env"
 	"net/http"
 	"os"
 	"os/signal"
@@ -33,7 +35,7 @@ func main() {
 	}
 
 	go func() {
-		if err := router.Run(":8000"); err != nil && err != http.ErrServerClosed {
+		if err := router.Run(fmt.Sprintf(":%s", env.GetVariable("PORT"))); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("listen: %s\n", err)
 		}
 	}()
