@@ -3,7 +3,6 @@ name: Netlify-Preview
 on:
   push:
     branches:
-      - main
       - develop
     paths:
       - 'front/**'
@@ -15,26 +14,10 @@ on:
 jobs:
   build-deploy-preview:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 14.x ]
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Set up Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install dependencies
-        working-directory: ./front
-        run: npm install
-
-      - name: Build
-        working-directory: ./front
-        run: npm run build
 
       - name: Netlify prevew deploy
         uses: nwtgck/actions-netlify@v1.2.2

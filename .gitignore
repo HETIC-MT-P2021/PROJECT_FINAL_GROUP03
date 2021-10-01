@@ -29,5 +29,5 @@ front/.env
 deploy/back/.terraform/*
 
 # .tfstate files
-deploy-back/*.tfstate
-deploy-back/*.tfstate.*
+deploy/back/*.tfstate
+deploy/back/*.tfstate.*

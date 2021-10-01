@@ -1,0 +1,21 @@
+name: Heroku - Deploy - Dev
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_run:
+    workflows: [ "Lint, Build & Tests - Go" ]
+    types:
+      - completed
+
+jobs:
+  dev-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "finalprojectgroup3-dev"
+          heroku_email: "jacques.maarek@hetic.net"

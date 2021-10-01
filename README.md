@@ -8,7 +8,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/6832d952-0846-49fa-b4b9-b2161edb643a/deploy-status)](https://app.netlify.com/sites/go-bot-front/deploys)
 
-![Heroku](https://pyheroku-badge.herokuapp.com/?app=finalprojectgroup3&style=flat)
+![Heroku](https://pyheroku-badge.herokuapp.com/?app=finalprojectgroup3-prod&style=flat)
 
 
 ## Setup
