@@ -12,30 +12,32 @@ terraform {
 resource "heroku_config" "global" {
   vars = {
     LOG_LEVEL = "info"
-    ENV = var.environment
   }
 
   sensitive_vars = {
-    PRIVATE_KEY = "some_private_key"
+    DISCORD_TOKEN = var.discord_token
+    SERVER_ADDR_FRONT = var.server_addr_front
   }
 }
 
 // Heroku app creation
 resource "heroku_app" "final_project_group3" {
-  name   = var.app_name + "-" + heroku_config.global.vars.ENV
+  for_each = toset(var.environments)
+  name   = format("%s-%s", var.app_name, each.value)
   config_vars = {
     GOVERSION: var.go_version
     APP_BASE: "back"
     PROJECT_PATH: "back"
-    SERVER_ADDR_FRONT: var.server_addr_front
-    DISCORD_TOKEN: var.discord_token
+    SERVER_ADDR_FRONT: heroku_config.global.sensitive_vars.SERVER_ADDR_FRONT
+    DISCORD_TOKEN: heroku_config.global.sensitive_vars.DISCORD_TOKEN
   }
   region = "eu"
 }
 
 // App build
 resource "heroku_build" "api_build" {
-  app        = heroku_app.final_project_group3.name
+  for_each = heroku_app.final_project_group3
+  app        = each.value.name
   buildpacks = ["https://github.com/timanovsky/subdir-heroku-buildpack", "https://github.com/heroku/heroku-buildpack-go"]
 
   source {
@@ -47,16 +49,18 @@ resource "heroku_build" "api_build" {
 
 # Launch the app's web process by scaling-up
 resource "heroku_formation" "api_formation" {
-  app        = heroku_app.final_project_group3.name
+  for_each = heroku_app.final_project_group3
+  app        = each.value.name
   type       = "web"
   quantity   = 1
-  size       = "Standard-1x"
+  size       = "free"
   depends_on = [heroku_build.api_build]
 }
 
 // Database Addon
 resource "heroku_addon" "api_pg" {
-  app  = heroku_app.final_project_group3.name
+  for_each = heroku_app.final_project_group3
+  app  = each.value.name
   plan = "heroku-postgresql:hobby-dev"
 }
 

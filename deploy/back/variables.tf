@@ -23,8 +23,9 @@ variable "go_version" {
   default = 1.17
 }
 
-variable "environment" {
+variable "environments" {
   description = "App environment"
-  type = string
+  type = list(string)
+  default = ["dev", "prod"]
 }
 
