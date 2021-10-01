@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'back/**'
   workflow_run:
     workflows: [ "Lint, Build & Tests - Go" ]
     types:
