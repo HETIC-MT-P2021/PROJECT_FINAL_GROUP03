@@ -13,7 +13,6 @@ function AppNavbar() {
               <Nav.Link style={{color: "white"}} href="/">
                 Home
               </Nav.Link>
-              <Nav.Link style={{color: "white"}} href="link">Link</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

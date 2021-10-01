@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // views
 import Home from "./views/home/Home";
-import Community from "./views/community/Community";
+import Server from "./views/server/Server";
 
 function App() {
   return (
@@ -16,8 +16,8 @@ function App() {
         </header>
         <section className="App-body">
           <Switch>
-            <Route path="/link">
-              <Community />
+            <Route path="/servers/:id">
+              <Server />
             </Route>
             <Route path="/">
               <Home />
