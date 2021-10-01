@@ -21,6 +21,7 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	if m.Author.ID == s.State.User.ID {
 		return
 	}
+	// Register user in db
 	signUpifNotRegistered(m)
 
 	if !strings.HasPrefix(strings.ToLower(m.Content), "/admin") {

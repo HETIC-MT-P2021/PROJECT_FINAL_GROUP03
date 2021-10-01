@@ -5,7 +5,6 @@ import (
 
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/api/controllers"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/api/middlewares"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back/shared/env"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -21,6 +20,8 @@ func Initialize(r *gin.Engine) {
 
 	servers := v1.Group("/servers")
 	{
+		servers.GET("", controllers.GetServers)
+		servers.GET("/:id", controllers.GetServerByID)
 		servers.PUT("/:id/welcome-message", controllers.UpdateWelcomeMessage)
 	}
 }
@@ -28,7 +29,7 @@ func Initialize(r *gin.Engine) {
 func configureCORS(r *gin.Engine) {
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
-			env.GetVariable("SERVER_ADDR_FRONT"),
+		 "*",
 		},
 		AllowMethods:     []string{"GET", "PUT", "POST", "DELETE", "OPTIONS"},
 		ExposeHeaders:    []string{"Authorization"},
