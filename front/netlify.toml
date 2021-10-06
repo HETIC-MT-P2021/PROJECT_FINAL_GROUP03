@@ -1,5 +1,4 @@
 [build]
-base="/front"
 publish="/build"
 command="yarn build && yarn start"
 
