@@ -6,6 +6,11 @@ on:
       - develop
     paths:
       - 'front/**'
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - 'front/**'
   workflow_run:
     workflows: [ "Lint, Build & Tests - NodeJs" ]
     types:
