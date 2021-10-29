@@ -17,7 +17,7 @@ func main() {
 		log.Fatal("Could not connect to db : ", err)
 	}
 	database.Migrate()
-	
+
 	// connect to discord
 	var err error
 	DiscordSession, err = discordApi.InitializeBot()
