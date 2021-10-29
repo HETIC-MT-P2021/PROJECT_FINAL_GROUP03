@@ -1,30 +1,15 @@
-import http from "../../http.utils";
-import Servers from "../../components/servers/Servers";
-import { useEffect, useState } from "react";
-import { AxiosResponse } from "axios";
-import Server from "../../interfaces/Server";
 import "./Home.css";
+import queryString from "querystring";
 
-const serversURL = process.env.REACT_APP_API_URL + "/servers";
-function Home() { 
-  const [servers, setServers] = useState<Server[]>([]);
+function Home() {
+  const params = queryString.parse(window.location.search);
+  const code = params["?code"]?.toString();
+  
+  if (code) localStorage.setItem("auth", code);
+  else if ("undefined" == localStorage.getItem("auth"))
+    window.location.href = "/login";
 
-  useEffect(() => {
-    http
-      .get(serversURL, {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("u_hash")
-        }
-      })
-      .then((response: AxiosResponse) => {
-        setServers(response.data);
-      });
-  }, []);
-  return (
-    <div>
-      <Servers servers={servers} />
-    </div>
-  );
+  return <div>Home</div>;
 }
 
 export default Home;

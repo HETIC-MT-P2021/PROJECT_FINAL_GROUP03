@@ -1,23 +1,21 @@
 import React from "react";
-import AppNavbar from "./components/navbar/Navbar";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // views
 import Home from "./views/home/Home";
-import Server from "./views/server/Server";
+import Auth from "./views/auth/Auth";
 
 function App() {
   return (
     <Router>
       <div>
         <header className="App-header">
-          <AppNavbar />
         </header>
         <section className="App-body">
           <Switch>
-            <Route path="/servers/:id">
-              <Server />
+            <Route path="/login">
+              <Auth />
             </Route>
             <Route path="/">
               <Home />

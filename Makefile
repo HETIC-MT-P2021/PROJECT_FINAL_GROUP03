@@ -11,8 +11,8 @@ log:
 	docker-compose logs -f
 
 copy-files:
-	cp env/back/.env.dist back/.env
+	cp env/domainApi/.env.dist domainApi/.env
 	cp env/front/.env.dist front/.env
 	cp env/global/.env .env
-	cat env/global/.env >> back/.env
+	cat env/global/.env >> domainApi/.env
 	cat env/global/.env >> front/.env
