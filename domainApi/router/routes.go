@@ -6,5 +6,5 @@ import (
 )
 
 func Initialize(r *gin.Engine) {
-	r.PUT("/servers/:id", controllers.EditServer)
+	r.POST("/commands/change-welcome-message", controllers.ChangeWelcomeMessage)
 }

@@ -4,6 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func EditServer(c *gin.Context) {
+func ChangeWelcomeMessage(c *gin.Context) {
 
 }
