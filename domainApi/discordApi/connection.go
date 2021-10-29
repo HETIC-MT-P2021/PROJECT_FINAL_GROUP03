@@ -5,8 +5,9 @@ import (
 	log "github.com/sirupsen/logrus"
 	"os"
 )
+var DiscordSession *discordgo.Session
 
-func InitializeBot() (*discordgo.Session, error) {
+func InitializeConnection() (*discordgo.Session, error) {
 	discordToken, tokenExist := os.LookupEnv("DISCORD_TOKEN")
 	if !tokenExist {
 		log.Fatal("Missing environment variable : DISCORD_TOKEN")
@@ -19,6 +20,9 @@ func InitializeBot() (*discordgo.Session, error) {
 		return nil, err
 	}
 
+	// Add handler for welcome messages
+	dg.AddHandler(GuildMemberAdd)
+
 	// In this example, we only care about receiving message events.
 	dg.Identify.Intents = discordgo.MakeIntent(discordgo.IntentsAll)
 
@@ -28,7 +32,7 @@ func InitializeBot() (*discordgo.Session, error) {
 		log.Error("Error opening discord connection, ", err)
 		return nil, err
 	}
-
+	DiscordSession = dg
 	// Check for new guilds
 	checkForGuilds(dg)
 

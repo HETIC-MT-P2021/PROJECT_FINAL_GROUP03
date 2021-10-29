@@ -4,12 +4,9 @@ import (
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/database"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/discordApi"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/router"
-	"github.com/bwmarrin/discordgo"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 )
-
-var DiscordSession *discordgo.Session
 
 func main() {
 	// init db connection
@@ -19,9 +16,7 @@ func main() {
 	database.Migrate()
 
 	// connect to discord
-	var err error
-	DiscordSession, err = discordApi.InitializeBot()
-	if err != nil {
+	if _, err := discordApi.InitializeConnection(); err != nil {
 		log.Fatal("Could not connect to discord : ", err)
 	}
 
