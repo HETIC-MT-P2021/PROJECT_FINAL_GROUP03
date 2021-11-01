@@ -7,4 +7,6 @@ import (
 
 func Initialize(r *gin.Engine) {
 	r.POST("/commands/change-welcome-message", controllers.ChangeWelcomeMessage)
+
+	r.GET("/servers", controllers.GetAll)
 }

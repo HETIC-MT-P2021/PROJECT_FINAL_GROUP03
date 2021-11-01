@@ -18,3 +18,7 @@ func PersistServer(server *models.Server) error {
 func UpdateServerMessage(server *models.Server) error {
 	return database.Db.Debug().Model(&server).Where("discord_id = ?", server.DiscordID).Update("welcome_message", server.WelcomeMessage).Error
 }
+
+func FindAllServers(servers *[]models.Server) error {
+	return database.Db.Debug().Find(servers).Error
+}

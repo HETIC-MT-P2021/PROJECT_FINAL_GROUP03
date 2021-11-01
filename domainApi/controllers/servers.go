@@ -30,3 +30,14 @@ func ChangeWelcomeMessage(c *gin.Context) {
 
 	c.JSON(http.StatusOK, "server message updated successfully")
 }
+
+func GetAll(c *gin.Context) {
+	var servers []models.Server
+
+	if err := repositories.FindAllServers(&servers); err != nil {
+		c.JSON(http.StatusInternalServerError, "error while fetching servers")
+		return
+	}
+
+	c.JSON(http.StatusOK, servers)
+}
