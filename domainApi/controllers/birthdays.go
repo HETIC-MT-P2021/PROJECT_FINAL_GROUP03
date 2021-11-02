@@ -11,12 +11,12 @@ import (
 func CreateUserBirthday(c *gin.Context) {
 	var birthday models.Birthday
 	if err := c.ShouldBindJSON(birthday); err != nil {
-		c.JSON(http.StatusBadRequest,"request should contain valid properties")
+		c.JSON(http.StatusBadRequest, "request should contain valid properties")
 		return
 	}
 
 	foundBirthday := models.Birthday{
-		UserID:    birthday.UserID,
+		UserID: birthday.UserID,
 	}
 
 	if err := repositories.FindBirthdayByUserID(&foundBirthday); err == nil {

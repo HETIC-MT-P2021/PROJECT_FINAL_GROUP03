@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/cron"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/database"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/discordApi"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/router"
@@ -16,15 +17,18 @@ func main() {
 	database.Migrate()
 
 	// connect to discord
-	if _, err := discordApi.InitializeConnection(); err != nil {
+	session, err := discordApi.InitializeConnection()
+	if err != nil {
 		log.Fatal("Could not connect to discord : ", err)
 	}
+
+	// Cron jobs
+	cron.InitBirthdayReminderJob(session)
 
 	// init router
 	r := gin.Default()
 	router.Initialize(r)
 	router.Run(r)
 
-
-	log.Info("Hey c'est l'API domain")	
+	log.Info("Hey c'est l'API domain")
 }
