@@ -40,9 +40,40 @@ function Home() {
                 const tokens : TokenInterface = response.data as TokenInterface;
                 localStorage.setItem("access_token", tokens["access_token"]);
                 localStorage.setItem("refresh_token", tokens["refresh_token"]);
-                setTimeout(() => getDiscordTokens(), tokens["expires_in"])
+                setTimeout(() => refreshTokens(), tokens["expires_in"] * 1000)
             })
     }
+
+    const refreshTokens = () => {
+        // get refresh token from localstorage
+        const refreshToken = localStorage.getItem("refresh_token");
+        if (null === refreshToken) {
+            window.location.href = "/login";
+            return;
+        }
+
+        // call discord api for new tokens
+        const config = {
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            data: {}
+        }
+
+        http.post(serverURL + "/oauth2/token", new URLSearchParams({
+            client_id: clientId,
+            client_secret: clientSecret,
+            refresh_token: refreshToken,
+            grant_type: 'refresh_token',
+            redirect_uri: `http://localhost:${port}`,
+        }), config)
+            .then((response: AxiosResponse<{}>) => {
+                const tokens : TokenInterface = response.data as TokenInterface;
+                localStorage.setItem("access_token", tokens["access_token"]);
+                localStorage.setItem("refresh_token", tokens["refresh_token"]);
+                setTimeout(() => refreshTokens(), tokens["expires_in"] * 1000)
+            })
+    };
 
     useEffect(() => {
       getDiscordTokens();
