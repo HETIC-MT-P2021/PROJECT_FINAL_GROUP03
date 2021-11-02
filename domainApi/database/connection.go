@@ -14,7 +14,7 @@ var Db *gorm.DB
 
 // Config is the structure used to load db credentials from the environment.
 type Config struct {
-	DbURL    string `env:"DATABASE_URL"`
+	DbURL string `env:"DATABASE_URL"`
 }
 
 // Init Initializes a db connection
@@ -50,7 +50,7 @@ func Init() error {
 func getConfig() (Config, error) {
 	var err error
 	cfg := Config{
-		DbURL:    env.GetVariable("DATABASE_URL"),
+		DbURL: env.GetVariable("DATABASE_URL"),
 	}
 
 	return cfg, err
