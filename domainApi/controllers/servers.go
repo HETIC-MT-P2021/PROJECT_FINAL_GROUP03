@@ -31,6 +31,29 @@ func ChangeWelcomeMessage(c *gin.Context) {
 	c.JSON(http.StatusOK, "server message updated successfully")
 }
 
+func ChangeBirthdayMessage(c *gin.Context) {
+	var server models.Server
+	if err := c.ShouldBindJSON(&server); err != nil {
+		c.JSON(http.StatusBadRequest, "request should contain a DiscordId and a Birthday message")
+		return
+	}
+
+	foundServer := models.Server{
+		DiscordID: server.DiscordID,
+	}
+	if err := repositories.FindServerByDiscordID(&foundServer); err != nil {
+		c.JSON(http.StatusNotFound, fmt.Sprintf("Server with id %s not found", server.DiscordID))
+		return
+	}
+
+	if err := repositories.UpdateBirthdayMessage(&server); err != nil {
+		c.JSON(http.StatusInternalServerError, "couldnt update server message, please try again or contact support")
+		return
+	}
+
+	c.JSON(http.StatusOK, "Birthday message updated successfully")
+}
+
 func GetAll(c *gin.Context) {
 	var servers []models.Server
 

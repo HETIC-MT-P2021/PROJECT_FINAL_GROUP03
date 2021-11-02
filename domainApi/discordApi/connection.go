@@ -5,6 +5,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"os"
 )
+
 var DiscordSession *discordgo.Session
 
 func InitializeConnection() (*discordgo.Session, error) {
