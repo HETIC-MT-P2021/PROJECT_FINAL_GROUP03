@@ -6,7 +6,12 @@ import (
 )
 
 func Initialize(r *gin.Engine) {
-	r.POST("/commands/change-welcome-message", controllers.ChangeWelcomeMessage)
+	api := r.Group("/api")
+	v1 := api.Group("/v1")
+	{
+		v1.POST("/commands/change-welcome-message", controllers.ChangeWelcomeMessage)
 
-	r.GET("/servers", controllers.GetAll)
+		v1.GET("/servers", controllers.GetAll)
+	}
+
 }

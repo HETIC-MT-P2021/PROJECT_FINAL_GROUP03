@@ -6,5 +6,9 @@ import (
 )
 
 func Initialize(r *gin.Engine) {
-	r.GET("/servers", controllers.GetServers)
+	api := r.Group("/api")
+	v1 := api.Group("/v1")
+	{
+		v1.GET("/servers", controllers.GetServers)
+	}
 }

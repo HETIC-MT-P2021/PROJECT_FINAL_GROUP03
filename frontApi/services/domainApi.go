@@ -1,6 +1,7 @@
 package services
 
 import (
+	"encoding/json"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/frontApi/env"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/frontApi/models"
 	log "github.com/sirupsen/logrus"
@@ -29,7 +30,8 @@ func GetBotServers() ([]models.Server, error) {
 		return servers, err
 	}
 
-	log.Info("BODY ",body)
+	log.Info(string(body))
+	json.Unmarshal(body, &servers)
 
 	return servers, err
 }

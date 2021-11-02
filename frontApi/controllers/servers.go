@@ -9,13 +9,14 @@ import (
 )
 
 func GetServers(c *gin.Context) {
-	authCode := c.GetHeader("Authorization")
-	if "" == authCode {
+	accessToken := c.GetHeader("Authorization")
+
+	if "" == accessToken {
 		c.JSON(http.StatusUnauthorized,"Authorization code needed")
 		return
 	}
 
-	session, err := services.GetUserSession(authCode)
+	session, err := services.GetUserSession(accessToken)
 	if err != nil {
 		c.JSON(
 			http.StatusUnauthorized,
@@ -27,6 +28,7 @@ func GetServers(c *gin.Context) {
 	// Get all user guilds
 	userGuilds, err := session.UserGuilds(100, "", "")
 	if err != nil {
+		log.Error(err)
 		c.JSON(http.StatusInternalServerError, "couldn't fetch guilds")
 		return
 	}
@@ -42,6 +44,7 @@ func GetServers(c *gin.Context) {
 	finalServers := make([]models.Server, 0)
 	for _, guild := range botGuilds {
 		for _, userGuild := range userGuilds {
+			log.Info(guild.DiscordID)
 			if userGuild.ID == guild.DiscordID {
 				guild.Name = userGuild.Name
 				log.Info("ICONE ", userGuild.Icon)
@@ -51,5 +54,6 @@ func GetServers(c *gin.Context) {
 		}
 	}
 
+	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(http.StatusOK, finalServers)
 }
