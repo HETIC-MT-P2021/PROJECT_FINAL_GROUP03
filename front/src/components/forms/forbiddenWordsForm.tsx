@@ -56,7 +56,6 @@ const ForbiddenWordsForm = (props: {
                     Enregistrer
                 </Button>
             </div>
-
         </div>
     )
 };
