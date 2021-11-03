@@ -41,3 +41,17 @@ func GetAll(c *gin.Context) {
 
 	c.JSON(http.StatusOK, servers)
 }
+
+func GetByID(c *gin.Context) {
+	id := c.Param("id")
+	server := models.Server {
+		DiscordID: id,
+	}
+
+	if err := repositories.FindServerByDiscordID(&server); err != nil {
+		c.JSON(http.StatusNotFound, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, server)
+}

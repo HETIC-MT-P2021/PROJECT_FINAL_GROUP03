@@ -1,0 +1,21 @@
+.sidebar {
+    height: 100vh;
+    width: 60px;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    background-color: #5a5a5a;
+}
+
+.sidebar__link {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0px;
+}
+
+.sidebar__link:hover {
+    transform: scale(1.1);
+}

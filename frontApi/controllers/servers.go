@@ -3,24 +3,18 @@ package controllers
 import (
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/frontApi/models"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/frontApi/services"
+	"github.com/bwmarrin/discordgo"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"net/http"
 )
 
 func GetServers(c *gin.Context) {
-	accessToken := c.GetHeader("Authorization")
-
-	if "" == accessToken {
-		c.JSON(http.StatusUnauthorized,"Authorization code needed")
-		return
-	}
-
-	session, err := services.GetUserSession(accessToken)
+	session, err := services.GetUserSession(c)
 	if err != nil {
 		c.JSON(
 			http.StatusUnauthorized,
-			"couldn't connect to discord, please check the authorization code or try again later",
+			err.Error(),
 		)
 		return
 	}
@@ -44,10 +38,17 @@ func GetServers(c *gin.Context) {
 	finalServers := make([]models.Server, 0)
 	for _, guild := range botGuilds {
 		for _, userGuild := range userGuilds {
-			log.Info(guild.DiscordID)
 			if userGuild.ID == guild.DiscordID {
+				isNotAdmin, err := services.MemberHasPermission(session, guild.DiscordID, discordgo.PermissionAdministrator)
+				if err != nil {
+					log.Error(err)
+				}
+
+				if !userGuild.Owner && isNotAdmin {
+					continue
+				}
+
 				guild.Name = userGuild.Name
-				log.Info("ICONE ", userGuild.Icon)
 
 				finalServers = append(finalServers, guild)
 			}
@@ -56,4 +57,57 @@ func GetServers(c *gin.Context) {
 
 	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(http.StatusOK, finalServers)
+}
+
+func GetServerByID(c *gin.Context) {
+
+	serverID := c.Param("id")
+
+	session, err := services.GetUserSession(c)
+	if err != nil {
+		c.JSON(
+			http.StatusUnauthorized,
+			err.Error(),
+		)
+		return
+	}
+
+	userGuild, err := services.GetUserGuildByID(session, serverID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	botGuild, err := services.GetBotServerById(serverID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.Header("Access-Control-Allow-Origin", "*")
+	c.JSON(http.StatusOK, models.Server{
+		DiscordID: serverID,
+		Name: userGuild.Name,
+		WelcomeMessage: botGuild.WelcomeMessage,
+	})
+}
+
+func PatchServer(c *gin.Context) {
+	serverID := c.Param("id")
+	var payload models.Server
+
+	if err := c.ShouldBindJSON(&payload); err != nil {
+		c.JSON(http.StatusBadRequest, "payload should be compatible with models.Server struct")
+		return
+	}
+
+	if payload.WelcomeMessage != "" {
+		if err := services.ChangeWelcomeMessage(serverID, payload.WelcomeMessage); err != nil {
+			c.JSON(http.StatusInternalServerError, err.Error())
+		}
+
+	}
+
+	c.Header("Access-Control-Allow-Origin", "*")
+	c.JSON(http.StatusOK, "")
 }

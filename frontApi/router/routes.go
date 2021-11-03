@@ -10,6 +10,9 @@ func Initialize(r *gin.Engine) {
 	v1 := api.Group("/v1")
 	{
 		v1.GET("/servers", controllers.GetServers)
+		v1.GET("/servers/:id", controllers.GetServerByID)
+		v1.PATCH("/servers/:id", controllers.PatchServer)
+
 		v1.GET("/me", controllers.GetUser)
 	}
 }

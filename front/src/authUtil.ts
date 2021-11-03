@@ -58,6 +58,7 @@ class AuthUtils {
     private refreshTokens() {
         const refreshToken = localStorage.getItem("refresh_token");
         if (null === refreshToken) {
+            console.log("no refresh token, redirecting...")
             window.location.href = "/login";
             return;
         }

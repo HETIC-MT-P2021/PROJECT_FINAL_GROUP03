@@ -38,7 +38,7 @@ func configureCORS(r *gin.Engine) {
 		AllowOrigins: []string{
 			"*",
 		},
-		AllowMethods:     []string{"GET", "PUT", "POST", "DELETE", "OPTIONS"},
+		AllowMethods:     []string{"GET", "PUT", "POST", "DELETE", "OPTIONS", "PATCH"},
 		ExposeHeaders:    []string{"Authorization"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization", "User-Agent", "Referrer", "Host"},
 		AllowCredentials: true,

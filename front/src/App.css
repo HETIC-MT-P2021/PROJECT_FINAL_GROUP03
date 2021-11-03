@@ -1,5 +1,6 @@
 .App-body {
-  height: calc(100vh - 56px);
+  height: 100vh;
   width: 100vw;
+  padding-left: 60px;
   background-color: #3D3B3C;
 }
