@@ -1,23 +1,32 @@
 import React from "react";
-import AppNavbar from "./components/navbar/Navbar";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import authUtils from "./authUtil";
+
 // views
 import Home from "./views/home/Home";
-import Community from "./views/community/Community";
+import Auth from "./views/auth/Auth";
+import Dashboard from "./views/dashboard/Dashboard";
+import AuthUtils from "./authUtil";
 
 function App() {
+  // handle tokens
+  let auth = new AuthUtils();
+  auth.handleTokens();
+
   return (
     <Router>
       <div>
         <header className="App-header">
-          <AppNavbar />
         </header>
         <section className="App-body">
           <Switch>
-            <Route path="/link">
-              <Community />
+            <Route path="/login">
+              <Auth />
+            </Route>
+            <Route path="/dashboard">
+              <Dashboard />
             </Route>
             <Route path="/">
               <Home />
