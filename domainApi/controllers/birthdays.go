@@ -10,7 +10,7 @@ import (
 
 func CreateUserBirthday(c *gin.Context) {
 	var birthday models.Birthday
-	if err := c.ShouldBindJSON(birthday); err != nil {
+	if err := c.ShouldBindJSON(&birthday); err != nil {
 		c.JSON(http.StatusBadRequest, "request should contain valid properties")
 		return
 	}
