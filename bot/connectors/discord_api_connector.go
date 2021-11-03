@@ -22,8 +22,6 @@ func InitializeBot() (*discordgo.Session, error) {
 
 	// Register the messageCreate func as a callback for MessageCreate events.
 	dg.AddHandler(handlers.MessageCreate)
-
-	// In this example, we only care about receiving message events.
 	dg.Identify.Intents = discordgo.MakeIntent(discordgo.IntentsGuildMessages)
 
 	// Open a websocket connection to Discord and begin listening.

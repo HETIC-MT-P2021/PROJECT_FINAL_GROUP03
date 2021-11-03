@@ -13,6 +13,9 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
+	/*if !strings.HasPrefix(strings.ToLower(m.Content), "/admin") {
+		// Admin Commands
+	}*/
 	params := strings.Split(m.Content, " ")
 	if len(params) < 2 {
 		return

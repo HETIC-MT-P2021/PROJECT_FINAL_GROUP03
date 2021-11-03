@@ -67,7 +67,7 @@ func GetAll(c *gin.Context) {
 
 func GetByID(c *gin.Context) {
 	id := c.Param("id")
-	server := models.Server {
+	server := models.Server{
 		DiscordID: id,
 	}
 
