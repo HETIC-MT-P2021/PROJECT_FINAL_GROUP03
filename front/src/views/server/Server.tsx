@@ -5,6 +5,7 @@ import http from "../../http.utils";
 import {AxiosResponse} from "axios";
 import "./server.css"
 import WelcomeMessageForm from "../../components/forms/welcomeMessageForm";
+import ForbiddenWordsForm from "../../components/forms/forbiddenWordsForm";
 
 
 const Server = () => {
@@ -67,6 +68,8 @@ const Server = () => {
                 onvalidate={changeWelcomeMessage}
             />
             <p>{errorMessageText}</p>
+
+            <ForbiddenWordsForm forbidden_words={server.forbidden_words} onvalidate={(e) => console.log(e)} />
         </section>
     )
 };

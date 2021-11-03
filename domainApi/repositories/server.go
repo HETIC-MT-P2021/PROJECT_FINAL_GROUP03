@@ -18,6 +18,9 @@ func PersistServer(server *models.Server) error {
 func UpdateServerMessage(server *models.Server) error {
 	return database.Db.Debug().Model(&server).Where("discord_id = ?", server.DiscordID).Update("welcome_message", server.WelcomeMessage).Error
 }
+func UpdateServerForbiddenWords(server *models.Server) error {
+	return database.Db.Debug().Model(&server).Where("discord_id = ?", server.DiscordID).Update("forbidden_words", server.ForbiddenWords).Error
+}
 
 func UpdateBirthdayMessage(server *models.Server) error {
 	return database.Db.Debug().Model(&server).Where("discord_id = ?", server.DiscordID).Update("birthday_message", server.BirthdayMessage).Error

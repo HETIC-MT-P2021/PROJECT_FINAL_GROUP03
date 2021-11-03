@@ -17,7 +17,7 @@ const WelcomeMessageForm = (props: {
     };
 
     return (
-        <Form>
+        <Form className="">
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Welcome message</Form.Label>
                 <Form.Control

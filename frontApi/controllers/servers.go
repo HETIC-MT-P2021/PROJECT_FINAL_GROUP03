@@ -89,6 +89,7 @@ func GetServerByID(c *gin.Context) {
 		DiscordID:      serverID,
 		Name:           userGuild.Name,
 		WelcomeMessage: botGuild.WelcomeMessage,
+		ForbiddenWords: botGuild.ForbiddenWords,
 	})
 }
 
@@ -105,7 +106,11 @@ func PatchServer(c *gin.Context) {
 		if err := services.ChangeWelcomeMessage(serverID, payload.WelcomeMessage); err != nil {
 			c.JSON(http.StatusInternalServerError, err.Error())
 		}
-
+	}
+	if payload.ForbiddenWords != "" {
+		if err := services.ChangeForbiddenWords(serverID, payload.ForbiddenWords); err != nil {
+			c.JSON(http.StatusInternalServerError, err.Error())
+		}
 	}
 
 	c.Header("Access-Control-Allow-Origin", "*")
