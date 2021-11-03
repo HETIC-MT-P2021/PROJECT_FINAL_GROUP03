@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/bwmarrin/discordgo"
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 )
 
 func GetUserSession(c *gin.Context) (*discordgo.Session, error) {
@@ -31,4 +32,37 @@ func GetUserGuildByID(session *discordgo.Session, guildID string) (*discordgo.Us
 	}
 
 	return userGuild, nil
+}
+
+func MemberHasPermission(s *discordgo.Session, guildID string, permission int64) (bool, error) {
+	user := GetUser(s)
+
+	member, err := s.State.Member(guildID, user.ID)
+	if err != nil {
+		if member, err = s.GuildMember(guildID, user.ID); err != nil {
+			return false, err
+		}
+	}
+
+	// Iterate through the role IDs stored in member.Roles
+	// to check permissions
+	for _, roleID := range member.Roles {
+		role, err := s.State.Role(guildID, roleID)
+		if err != nil {
+			return false, err
+		}
+		if role.Permissions&permission != 0 {
+			return true, nil
+		}
+	}
+
+	return false, nil
+}
+
+func GetUser(session *discordgo.Session) *discordgo.User {
+	user, err := session.User("@me")
+	if err != nil {
+		log.Error("error while fetching user", err)
+	}
+	return user
 }

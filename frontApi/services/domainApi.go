@@ -58,3 +58,21 @@ func GetBotServerById(id string) (models.Server, error) {
 
 	return server, err
 }
+
+
+func ChangeWelcomeMessage(serverID, welcomeMessage string) error {
+	payload, err := json.Marshal(models.ChangeWelcomeMessageForm{WelcomeMessage: welcomeMessage, DiscordID: serverID})
+	if err != nil {
+		return err
+	}
+
+	client :=  &http.Client{}
+	r, err := http.NewRequest("POST", env.GetVariable("DOMAIN_API_URL") + "/commands/change-welcome-message", strings.NewReader(string(payload)))
+	if err != nil {
+		return err
+	}
+
+	_, err = client.Do(r)
+
+	return err
+}

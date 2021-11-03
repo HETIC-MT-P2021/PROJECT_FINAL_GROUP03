@@ -3,7 +3,7 @@ import {ChangeEvent, useState} from "react";
 import {Button, Form} from "react-bootstrap";
 
 const WelcomeMessageForm = (props: {
-    welcome_message: string | undefined;
+    welcome_message: string;
     onvalidate: (message: string) => void;
 }) => {
     const [welcomeMessage, setWelcomeMessage] = useState(props.welcome_message);

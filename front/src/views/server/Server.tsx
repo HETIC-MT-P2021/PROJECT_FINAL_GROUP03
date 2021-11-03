@@ -37,7 +37,7 @@ const Server = () => {
     useEffect(fetchServer, []);
 
     const changeWelcomeMessage = async (newMessage: string) => {
-        if (newMessage == server?.welcome_message) return;
+        if (newMessage == (server?.welcome_message || "")) return;
         let response = await http.patch(serverResourceUrl, {
             "welcome_message": newMessage
         });
@@ -52,12 +52,18 @@ const Server = () => {
         }, 2000);
     };
 
+    if (undefined == server?.name) {
+        return (
+            <div className="server-view">Loading server</div>
+        )
+    }
 
     return (
         <section className="server-view">
-            <h1>{ server?.name }</h1>
+            <h1>{ server.name }</h1>
+            
             <WelcomeMessageForm
-                welcome_message={server?.welcome_message}
+                welcome_message={server.welcome_message}
                 onvalidate={changeWelcomeMessage}
             />
             <p>{errorMessageText}</p>
