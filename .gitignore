@@ -23,7 +23,6 @@ tmp
 
 .env
 back/.env
-domainApi/.env
 front/.env
 
 # Local .terraform directories
