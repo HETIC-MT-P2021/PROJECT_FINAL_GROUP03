@@ -1,10 +1,9 @@
 package env
 
 import (
-	"os"
-
 	"github.com/joho/godotenv"
 	log "github.com/sirupsen/logrus"
+	"os"
 )
 
 // GetVariable loads a variable from the .env file
