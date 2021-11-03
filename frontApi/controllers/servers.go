@@ -9,18 +9,11 @@ import (
 )
 
 func GetServers(c *gin.Context) {
-	accessToken := c.GetHeader("Authorization")
-
-	if "" == accessToken {
-		c.JSON(http.StatusUnauthorized,"Authorization code needed")
-		return
-	}
-
-	session, err := services.GetUserSession(accessToken)
+	session, err := services.GetUserSession(c)
 	if err != nil {
 		c.JSON(
 			http.StatusUnauthorized,
-			"couldn't connect to discord, please check the authorization code or try again later",
+			err.Error(),
 		)
 		return
 	}
@@ -44,10 +37,8 @@ func GetServers(c *gin.Context) {
 	finalServers := make([]models.Server, 0)
 	for _, guild := range botGuilds {
 		for _, userGuild := range userGuilds {
-			log.Info(guild.DiscordID)
 			if userGuild.ID == guild.DiscordID {
 				guild.Name = userGuild.Name
-				log.Info("ICONE ", userGuild.Icon)
 
 				finalServers = append(finalServers, guild)
 			}
@@ -56,4 +47,37 @@ func GetServers(c *gin.Context) {
 
 	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(http.StatusOK, finalServers)
+}
+
+func GetServerByID(c *gin.Context) {
+
+	serverID := c.Param("id")
+
+	session, err := services.GetUserSession(c)
+	if err != nil {
+		c.JSON(
+			http.StatusUnauthorized,
+			err.Error(),
+		)
+		return
+	}
+
+	userGuild, err := services.GetUserGuildByID(session, serverID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	botGuild, err := services.GetBotServerById(serverID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.Header("Access-Control-Allow-Origin", "*")
+	c.JSON(http.StatusOK, models.Server{
+		DiscordID: serverID,
+		Name: userGuild.Name,
+		WelcomeMessage: botGuild.WelcomeMessage,
+	})
 }

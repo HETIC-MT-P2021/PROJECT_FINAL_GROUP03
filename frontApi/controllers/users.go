@@ -7,18 +7,11 @@ import (
 )
 
 func GetUser(c *gin.Context) {
-	accessToken := c.GetHeader("Authorization")
-
-	if "" == accessToken {
-		c.JSON(http.StatusUnauthorized,"Authorization code needed")
-		return
-	}
-
-	session, err := services.GetUserSession(accessToken)
+	session, err := services.GetUserSession(c)
 	if err != nil {
 		c.JSON(
 			http.StatusUnauthorized,
-			"couldn't connect to discord, please check the authorization code or try again later",
+			err.Error(),
 		)
 		return
 	}
