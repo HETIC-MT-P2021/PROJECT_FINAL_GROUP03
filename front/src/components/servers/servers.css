@@ -1,3 +1,17 @@
 .servers-container {
-    background-color: blue;
+    display: flex;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+}
+
+.server-card {
+    background-color: orange;
+    margin: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 50px;
+    width: 200px;
+    box-sizing: border-box;
 }

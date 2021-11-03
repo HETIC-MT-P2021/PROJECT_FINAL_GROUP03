@@ -3,6 +3,7 @@ import Server from "../../interfaces/server";
 import http from "../../http.utils";
 import {AxiosResponse} from "axios";
 import Servers from "../../components/servers/servers";
+import "./dashboard.css";
 
 function Dashboard() {
     const [servers, setServers] = useState<Server[]>([]);
@@ -23,7 +24,10 @@ function Dashboard() {
     useEffect(fetchServers, []);
 
     return (
-        <div><Servers servers={servers} /></div>
+        <section className="dashboard-view">
+            <h1>Choix du serveur</h1>
+            <Servers servers={servers} />
+        </section>
     )
 }
 

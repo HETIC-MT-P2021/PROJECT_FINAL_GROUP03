@@ -10,8 +10,8 @@ const Sidebar = () => {
 
     return (
         <section className="sidebar">
-            <div className="sidebar__link" onClick={() => redirectTo("/dashboard")}><MdHome color="white" size="30px"/></div>
-            <div className="sidebar__link" onClick={() => redirectTo("/logout")}><MdLogout color="white" size="30px"/></div>
+            <div className="sidebar__link" onClick={() => redirectTo("/dashboard")}><MdHome color="orange" size="30px"/></div>
+            <div className="sidebar__link" onClick={() => redirectTo("/logout")}><MdLogout color="orange" size="30px"/></div>
         </section>
     )
 }
