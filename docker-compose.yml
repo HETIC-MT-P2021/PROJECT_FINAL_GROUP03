@@ -1,17 +1,41 @@
 version: '3'
 
 services:
-  back:
+  domain_api:
     build: 
       context: .
-      dockerfile: docker/back/Dockerfile
+      dockerfile: docker/domainApi/Dockerfile
     ports: 
       - 8000:8000
     restart: on-failure
     volumes:
-      - ./back:/go/src/github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back
+      - ./domainApi:/go/src/github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi
     depends_on:
       - postgres
+    networks:
+      - backend
+  
+  front_api:
+    build: 
+      context: .
+      dockerfile: docker/frontApi/Dockerfile
+    ports: 
+      - 8001:8000
+    restart: on-failure
+    volumes:
+      - ./frontApi:/go/src/github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/frontApi
+    networks:
+      - backend
+
+  bot:
+    build: 
+      context: .
+      dockerfile: docker/bot/Dockerfile
+    ports: 
+      - 8002:8000
+    restart: on-failure
+    volumes:
+      - ./bot:/go/src/github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/bot
     networks:
       - backend
   
