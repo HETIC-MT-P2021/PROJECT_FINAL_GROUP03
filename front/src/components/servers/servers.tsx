@@ -1,5 +1,5 @@
-import Server from "../interfaces/server";
-
+import Server from "../../interfaces/server";
+import "./servers.css";
 
 const Servers = (props: { servers: Server[] }) => {
     const servers = props.servers;

@@ -8,22 +8,33 @@ import authUtils from "./authUtil";
 import Home from "./views/home/Home";
 import Auth from "./views/auth/Auth";
 import Dashboard from "./views/dashboard/Dashboard";
+
+// nav
+import Sidebar from "./components/sidebar/sidebar";
+
 import AuthUtils from "./authUtil";
+import Logout from "./views/logout/Logout";
 
 function App() {
   // handle tokens
-  let auth = new AuthUtils();
-  auth.handleTokens();
+  setTimeout(() => {
+    let auth = new AuthUtils();
+    auth.handleTokens();
+  }, 1500);
 
   return (
     <Router>
       <div>
         <header className="App-header">
+          <Sidebar></Sidebar>
         </header>
         <section className="App-body">
           <Switch>
             <Route path="/login">
               <Auth />
+            </Route>
+            <Route path="/logout">
+              <Logout />
             </Route>
             <Route path="/dashboard">
               <Dashboard />
