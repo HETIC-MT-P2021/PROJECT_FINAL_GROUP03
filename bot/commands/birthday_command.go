@@ -3,6 +3,7 @@ package commands
 import (
 	"errors"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/bot/enum"
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/bot/helpers"
 	log "github.com/sirupsen/logrus"
 	"strings"
 	"time"
@@ -26,13 +27,13 @@ func (command BirthdayCommand) Execute() error {
 	}
 
 	data := map[string]string{
-		"user_id": command.gc.Message.Author.ID,
-		"server_id": command.gc.Message.GuildID,
+		"user_id":    command.gc.Message.Author.ID,
+		"server_id":  command.gc.Message.GuildID,
 		"channel_id": command.gc.Message.ChannelID,
 		"birth_date": parsedDate.Format(time.RFC3339),
 	}
 
-	err = PerformRequest(enum.CreateUserBirthdayRoute, enum.Post, data)
+	err = helpers.PerformRequest(enum.CreateUserBirthdayRoute, enum.Post, data)
 	if err != nil {
 		log.Info(err.Error())
 		return err

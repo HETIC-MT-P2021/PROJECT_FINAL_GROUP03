@@ -12,10 +12,14 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	if m.Author.ID == s.State.User.ID {
 		return
 	}
+
 	/*if !strings.HasPrefix(strings.ToLower(m.Content), "/admin") {
 		// Admin Commands
 	}*/
 	params := strings.Split(m.Content, " ")
+	if len(params) < 2 {
+		return
+	}
 
 	genericCommand := commands.GenericCommand{
 		Session:     s,
