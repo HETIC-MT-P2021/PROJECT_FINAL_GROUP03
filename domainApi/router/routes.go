@@ -16,6 +16,11 @@ func Initialize(r *gin.Engine) {
 
 		v1.GET("/servers", controllers.GetAll)
 		v1.GET("/servers/:id", controllers.GetByID)
+
+		v1.GET("/roles", controllers.GetRoles)
+		v1.POST("/roles", controllers.CreateRole)
+		v1.PUT("/roles/:id", controllers.UpdateRoleById)
+		v1.DELETE("/roles/:id", controllers.DeleteRoleById)
 	}
 
 }
