@@ -1,0 +1,7 @@
+.forbidden-words * {
+    color: white;
+}
+
+.td-action {
+    margin: 0 5px;
+}

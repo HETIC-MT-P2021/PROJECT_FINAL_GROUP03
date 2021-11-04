@@ -62,13 +62,13 @@ const Server = () => {
     return (
         <section className="server-view">
             <h1>{ server.name }</h1>
-            
+            <br/>
             <WelcomeMessageForm
                 welcome_message={server.welcome_message}
                 onvalidate={changeWelcomeMessage}
             />
             <p>{errorMessageText}</p>
-
+            <br/>
             <ForbiddenWordsForm forbidden_words={server.forbidden_words} onvalidate={(e) => console.log(e)} />
         </section>
     )
