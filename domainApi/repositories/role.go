@@ -14,7 +14,7 @@ func FindRoleByName(r *models.Role) error {
 }
 
 func UpdateRoleByID(r *models.Role) error {
-	return database.Db.Debug().Model(&r).Where("id = ?", r.Id).Update("welcome_message", r.Name).Error
+	return database.Db.Debug().Model(&r).Where("id = ?", r.Id).Update("name", r.Name).Error
 }
 
 func DeleteRoleById(r *models.Role) error {

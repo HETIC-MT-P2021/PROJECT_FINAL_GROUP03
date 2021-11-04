@@ -22,7 +22,6 @@ func GuildMemberAdd(s *discordgo.Session, data *discordgo.GuildMemberAdd) {
 		log.Error(err)
 		return
 	}
-
 	/*
 		user := models.User{
 			DiscordID: data.User.ID,

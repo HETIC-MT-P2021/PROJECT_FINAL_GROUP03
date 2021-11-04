@@ -36,6 +36,11 @@ func CreateRole(c *gin.Context) {
 
 func UpdateRoleById(c *gin.Context) {
 	var role models.Role
+	if err := c.ShouldBindJSON(&role); err != nil {
+		c.JSON(http.StatusBadRequest, "request should contain valid properties")
+		return
+	}
+
 	role.Id = utils.ConvertStringToInt(c.Param("id"))
 	if err := repositories.UpdateRoleByID(&role); err != nil {
 		c.JSON(http.StatusInternalServerError, fmt.Sprintf("could not update role with id %d", role.Id))
@@ -48,6 +53,7 @@ func UpdateRoleById(c *gin.Context) {
 func DeleteRoleById(c *gin.Context) {
 	var role models.Role
 	role.Id = utils.ConvertStringToInt(c.Param("id"))
+
 	if err := repositories.DeleteRoleById(&role); err != nil {
 		c.JSON(http.StatusInternalServerError, fmt.Sprintf("could not delete role with id %d", role.Id))
 		return

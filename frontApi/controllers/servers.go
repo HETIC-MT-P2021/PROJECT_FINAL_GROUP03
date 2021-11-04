@@ -86,8 +86,8 @@ func GetServerByID(c *gin.Context) {
 
 	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(http.StatusOK, models.Server{
-		DiscordID: serverID,
-		Name: userGuild.Name,
+		DiscordID:      serverID,
+		Name:           userGuild.Name,
 		WelcomeMessage: botGuild.WelcomeMessage,
 	})
 }
