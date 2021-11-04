@@ -13,9 +13,12 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
-	/*if !strings.HasPrefix(strings.ToLower(m.Content), "/admin") {
-		// Admin Commands
-	}*/
+	// Check that the message is addressed to the bot
+	if !strings.HasPrefix(strings.ToLower(m.Content), "assistant") {
+		log.Info("commmand") 
+		return
+	}
+
 	params := strings.Split(m.Content, " ")
 	if len(params) < 2 {
 		return
@@ -28,6 +31,7 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	}
 
 	cmd, err := genericCommand.Build()
+	log.Info("commmand: ", cmd) 		
 	if err != nil {
 		_, err := s.ChannelMessageSend(m.ChannelID, "Je n'ai pas réussi à trouver ce qu'il vous fallait.")
 		if err != nil {
