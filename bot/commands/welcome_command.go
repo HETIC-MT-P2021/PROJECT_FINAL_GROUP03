@@ -27,7 +27,8 @@ func (command WelcomeCommand) Execute() error {
 	}
 
 	// Check that the message is not empty
-	sentence := params[2]
+	sentence := strings.Join(params[2:], " ")
+	log.Info("value sentence : ", sentence)
 	if len(sentence) <= 2 {
 		log.Error("Message too short")
 		return nil
@@ -51,7 +52,7 @@ func (command WelcomeCommand) Execute() error {
 	r, err := http.NewRequest("POST", env.GetVariable("DOMAIN_API_URL") + "/commands/change-welcome-message", strings.NewReader(string(payload)))
 	if err != nil {
 		log.Error(err)
-		_, err := command.gc.Session.(*discordgo.Session).ChannelMessageSend(command.gc.Message.ChannelID, "Je n'ai pas réussi à trouver ce qu'il vous fallait.")
+		_, err := command.gc.Session.(*discordgo.Session).ChannelMessageSend(command.gc.Message.ChannelID, "Je n'ai pas réussi à changer le message de bienvenue.")
 
 		if err != nil {
 			log.Error("sendMessageErr: ", err)
@@ -59,7 +60,7 @@ func (command WelcomeCommand) Execute() error {
 		return err
 	}
 
-	command.gc.Session.ChannelMessageSend(command.gc.Message.ChannelID, fmt.Sprintf("Voici le nouveau message de bienvenue : %s", sentence))
+	command.gc.Session.ChannelMessageSend(command.gc.Message.ChannelID, fmt.Sprintf("Bravo ! Voici le nouveau message de bienvenue : %s", sentence))
 
 	_, err = client.Do(r)
 
