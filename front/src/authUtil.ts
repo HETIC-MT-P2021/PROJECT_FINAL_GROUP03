@@ -47,7 +47,6 @@ class AuthUtils {
         }), config)
         .then((response: AxiosResponse<{}>) => {
             const tokens: TokenInterface = response.data as TokenInterface;
-            console.log(tokens);
             localStorage.setItem("access_token", tokens["access_token"]);
             localStorage.setItem("refresh_token", tokens["refresh_token"]);
             setTimeout(this.refreshTokens, tokens["expires_in"] * 1000)
@@ -80,7 +79,6 @@ class AuthUtils {
         }), config)
             .then((response: AxiosResponse<{}>) => {
                 const tokens: TokenInterface = response.data as TokenInterface;
-                console.log(tokens);
                 localStorage.setItem("access_token", tokens["access_token"]);
                 localStorage.setItem("refresh_token", tokens["refresh_token"]);
                 setTimeout(this.refreshTokens, tokens["expires_in"] * 1000)
