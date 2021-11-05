@@ -23,14 +23,13 @@ func ForbiddenMessageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	forbiddenWords := strings.Split(server.ForbiddenWords, ",")
 
-
 	for _, word := range forbiddenWords {
 		if strings.Contains(m.Content, word) {
 			if err := s.ChannelMessageDelete(m.ChannelID, m.ID); err != nil {
 				log.Error("moderation issue on message : ", m.ID, err)
 			}
 
-			s.ChannelMessageSend(m.ChannelID, m.Author.Username + " veuillez vous calmer, paix et amour ❤")
+			s.ChannelMessageSend(m.ChannelID, m.Author.Username+" veuillez vous calmer, paix et amour ❤")
 
 			return
 		}

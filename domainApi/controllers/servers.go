@@ -5,6 +5,7 @@ import (
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/models"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/repositories"
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 )
 
@@ -34,10 +35,11 @@ func ChangeWelcomeMessage(c *gin.Context) {
 func ChangeBirthdayMessage(c *gin.Context) {
 	var server models.Server
 	if err := c.ShouldBindJSON(&server); err != nil {
+		log.Error(err)
 		c.JSON(http.StatusBadRequest, "request should contain a DiscordId and a Birthday message")
-
 		return
 	}
+	log.Info(server)
 
 	foundServer := models.Server{
 		DiscordID: server.DiscordID,

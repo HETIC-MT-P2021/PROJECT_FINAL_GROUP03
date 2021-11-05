@@ -86,17 +86,18 @@ func GetServerByID(c *gin.Context) {
 
 	c.Header("Access-Control-Allow-Origin", "*")
 	c.JSON(http.StatusOK, models.Server{
-		DiscordID:      serverID,
-		Name:           userGuild.Name,
-		WelcomeMessage: botGuild.WelcomeMessage,
-		ForbiddenWords: botGuild.ForbiddenWords,
+		DiscordID:       serverID,
+		Name:            userGuild.Name,
+		WelcomeMessage:  botGuild.WelcomeMessage,
+		BirthdayMessage: botGuild.BirthdayMessage,
+		ForbiddenWords:  botGuild.ForbiddenWords,
 	})
 }
 
 func PatchServer(c *gin.Context) {
 	serverID := c.Param("id")
 	var payload models.Server
-
+	log.Info(serverID)
 	if err := c.ShouldBindJSON(&payload); err != nil {
 		c.JSON(http.StatusBadRequest, "payload should be compatible with models.Server struct")
 		return
@@ -109,6 +110,12 @@ func PatchServer(c *gin.Context) {
 	}
 	if payload.ForbiddenWords != "" {
 		if err := services.ChangeForbiddenWords(serverID, payload.ForbiddenWords); err != nil {
+			c.JSON(http.StatusInternalServerError, err.Error())
+		}
+	}
+
+	if payload.BirthdayMessage != "" {
+		if err := services.ChangeBirthdayMessage(serverID, payload.BirthdayMessage); err != nil {
 			c.JSON(http.StatusInternalServerError, err.Error())
 		}
 	}
