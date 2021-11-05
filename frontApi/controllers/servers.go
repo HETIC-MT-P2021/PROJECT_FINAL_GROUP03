@@ -97,7 +97,6 @@ func GetServerByID(c *gin.Context) {
 func PatchServer(c *gin.Context) {
 	serverID := c.Param("id")
 	var payload models.Server
-	log.Info(serverID)
 	if err := c.ShouldBindJSON(&payload); err != nil {
 		c.JSON(http.StatusBadRequest, "payload should be compatible with models.Server struct")
 		return
