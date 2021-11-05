@@ -17,9 +17,9 @@ const WelcomeMessageForm = (props: {
     };
 
     return (
-        <Form>
+        <Form className="">
             <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Welcome message</Form.Label>
+                <Form.Label><h3>Message de bienvenue</h3></Form.Label>
                 <Form.Control
                     type="text"
                     value={welcomeMessage}
@@ -28,8 +28,8 @@ const WelcomeMessageForm = (props: {
                 />
                 <br />
                 <Button variant="success" onClick={saveData}>
-                    Save
-                </Button>{" "}
+                    Enregistrer
+                </Button>
             </Form.Group>
         </Form>
     );

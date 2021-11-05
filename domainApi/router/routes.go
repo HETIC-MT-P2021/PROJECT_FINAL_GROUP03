@@ -11,6 +11,7 @@ func Initialize(r *gin.Engine) {
 	{
 		v1.POST("/commands/change-welcome-message", controllers.ChangeWelcomeMessage)
 		v1.POST("/commands/change-birthday-message", controllers.ChangeBirthdayMessage)
+		v1.POST("/commands/change-forbidden-words", controllers.ChangeForbiddenWordsList)
 
 		v1.POST("/birthdays", controllers.CreateUserBirthday)
 

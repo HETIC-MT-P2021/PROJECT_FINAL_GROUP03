@@ -21,7 +21,7 @@ function Dashboard() {
             }).catch(e => {setTimeout(fetchServers, 500)});
     };
 
-    useEffect(fetchServers, []);
+    useEffect(fetchServers, [serversURL, fetchServers]);
 
     return (
         <section className="dashboard-view">

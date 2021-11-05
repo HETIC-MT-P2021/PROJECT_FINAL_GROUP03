@@ -1,7 +1,8 @@
 package models
 
 type Server struct {
-	DiscordID      string `json:"discord_id"`
-	Name           string `json:"name"`
-	WelcomeMessage string `json:"welcome_message"`
+	DiscordID 		string `json:"discord_id"`
+	Name 			string `json:"name"`
+	WelcomeMessage 	string `json:"welcome_message"`
+	ForbiddenWords 	string `json:"forbidden_words"`
 }

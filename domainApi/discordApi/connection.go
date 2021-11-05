@@ -23,6 +23,8 @@ func InitializeConnection() (*discordgo.Session, error) {
 
 	// Add handler for welcome messages
 	dg.AddHandler(GuildMemberAdd)
+	dg.AddHandler(ForbiddenMessageHandler)
+	log.Info("Start moderating messages")
 
 	// In this example, we only care about receiving message events.
 	dg.Identify.Intents = discordgo.MakeIntent(discordgo.IntentsAll)

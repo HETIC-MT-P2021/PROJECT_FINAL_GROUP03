@@ -1,0 +1,17 @@
+.forbidden-words * {
+    color: white;
+}
+
+.td-action {
+    margin: 0 5px;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.buttons-container__button {
+    margin: 5px;
+}
