@@ -32,6 +32,7 @@ const ForbiddenWordsForm = (props: {
     const wordsItems = forbiddenWords.map(
         (word, index) => <ForbiddenWordItem key={index} word={word} index={index} onDelete={deleteWord} onEdit={replaceWord}/>
     );
+    
     return (
         <div className="forbidden-words">
             <h3>Mots interdits</h3>
