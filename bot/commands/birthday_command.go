@@ -32,8 +32,9 @@ func (command BirthdayCommand) Execute() error {
 		"channel_id": command.gc.Message.ChannelID,
 		"birth_date": parsedDate.Format(time.RFC3339),
 	}
+	
 
-	err = helpers.PerformRequest(enum.CreateUserBirthdayRoute, enum.Post, data)
+	_, err = helpers.PerformRequest(enum.CreateUserBirthdayRoute, enum.Post, data)
 	if err != nil {
 		log.Info(err.Error())
 		return err
