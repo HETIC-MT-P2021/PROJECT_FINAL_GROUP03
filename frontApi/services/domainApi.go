@@ -2,8 +2,10 @@ package services
 
 import (
 	"encoding/json"
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/frontApi/enum"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/frontApi/env"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/frontApi/models"
+	log "github.com/sirupsen/logrus"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -76,14 +78,30 @@ func ChangeWelcomeMessage(serverID, welcomeMessage string) error {
 	return err
 }
 
+func ChangeBirthdayMessage(serverID string, birthdayMessage string) error {
+	response, err := PerformApiRequest(enum.ChangeBirthdayMessageRoute, enum.Post, models.ChangeBirthdayMessage{
+		BirthdayMessage: birthdayMessage,
+		DiscordID:       serverID,
+	})
+	if err != nil {
+		return err
+	}
+	if response.StatusCode != 200 {
+		log.Error("Error occurred while updating birthday message")
+		return err
+	}
+
+	return nil
+}
+
 func ChangeForbiddenWords(serverID, wordsList string) error {
 	payload, err := json.Marshal(models.ForbiddenWordsListForm{ForbiddenWords: wordsList, DiscordID: serverID})
 	if err != nil {
 		return err
 	}
 
-	client :=  &http.Client{}
-	r, err := http.NewRequest("POST", env.GetVariable("DOMAIN_API_URL") + "/commands/change-forbidden-words", strings.NewReader(string(payload)))
+	client := &http.Client{}
+	r, err := http.NewRequest("POST", env.GetVariable("DOMAIN_API_URL")+"/commands/change-forbidden-words", strings.NewReader(string(payload)))
 	if err != nil {
 		return err
 	}

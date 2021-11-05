@@ -35,7 +35,6 @@ func ChangeBirthdayMessage(c *gin.Context) {
 	var server models.Server
 	if err := c.ShouldBindJSON(&server); err != nil {
 		c.JSON(http.StatusBadRequest, "request should contain a DiscordId and a Birthday message")
-
 		return
 	}
 

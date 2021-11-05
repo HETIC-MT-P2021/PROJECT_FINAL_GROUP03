@@ -6,6 +6,7 @@ import {AxiosResponse} from "axios";
 import "./server.css"
 import WelcomeMessageForm from "../../components/forms/welcomeMessageForm";
 import ForbiddenWordsForm from "../../components/forms/forbiddenWordsForm";
+import BirthdayMessageForm from "../../components/forms/birthdayMessageForm";
 
 
 const Server = () => {
@@ -73,6 +74,23 @@ const Server = () => {
         }, 2000);
     }
 
+    const changeBirthdayMessage = async (newMessage: string) => {
+        if (newMessage === (server?.birthday_message || "")) return;
+        let response = await http.patch(serverResourceUrl, {
+            "birthday_message": newMessage
+        });
+
+        setErrorMessageText(
+            response.status === 200
+                ? "nouveau message sauvegardé"
+                : "erreur lors du changement de message"
+        );
+
+        setTimeout(() => {
+            setErrorMessageText("");
+        }, 2000);
+    };
+
     if (undefined === server?.name) {
         return (
             <div className="server-view">Loading server</div>
@@ -86,6 +104,10 @@ const Server = () => {
             <WelcomeMessageForm
                 welcome_message={server.welcome_message}
                 onvalidate={changeWelcomeMessage}
+            />
+            <BirthdayMessageForm
+                birthday_message={server.birthday_message}
+                onvalidate={changeBirthdayMessage}
             />
             <p>{errorMessageText}</p>
             <br/>
