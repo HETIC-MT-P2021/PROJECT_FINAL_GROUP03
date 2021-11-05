@@ -1,6 +1,5 @@
 import "./sidebar.css";
 import {MdHome, MdLogout} from "react-icons/md";
-import Server from "../../interfaces/server";
 
 const Sidebar = () => {
 

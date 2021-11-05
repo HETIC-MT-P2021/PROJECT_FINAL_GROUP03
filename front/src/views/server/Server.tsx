@@ -17,7 +17,9 @@ const Server = () => {
     params = useParams();
     const serverResourceUrl = process.env.REACT_APP_API_URL + "/servers/" + params.id;
     let counter = 0;
+
     const fetchServer = () => {
+        if (server?.discord_id != undefined) {return}
         http
             .get(serverResourceUrl, {
                 headers: {
@@ -28,32 +30,32 @@ const Server = () => {
                 setServer(response.data);
             })
             .catch(e => {
-                console.log(e, " retrying...");
                 if (counter < 5)
                     setTimeout(fetchServer, 1000);
             });
         counter++;
     }
 
-    useEffect(fetchServer, []);
+    useEffect(fetchServer, [serverResourceUrl, fetchServer]);
 
     const changeWelcomeMessage = async (newMessage: string) => {
-        if (newMessage == (server?.welcome_message || "")) return;
+        if (newMessage === (server?.welcome_message || "")) return;
         let response = await http.patch(serverResourceUrl, {
             "welcome_message": newMessage
         });
 
         setErrorMessageText(
-            response.status == 200
+            response.status === 200
                 ? "nouveau message sauvegardé"
                 : "erreur lors du changement de message"
         );
+
         setTimeout(() => {
             setErrorMessageText("");
         }, 2000);
     };
 
-    if (undefined == server?.name) {
+    if (undefined === server?.name) {
         return (
             <div className="server-view">Loading server</div>
         )
@@ -69,7 +71,7 @@ const Server = () => {
             />
             <p>{errorMessageText}</p>
             <br/>
-            <ForbiddenWordsForm forbidden_words={server.forbidden_words} onvalidate={(e) => console.log(e)} />
+            <ForbiddenWordsForm forbidden_words={server.forbidden_words.split(",")} onvalidate={(e) => console.log(e)} />
         </section>
     )
 };
