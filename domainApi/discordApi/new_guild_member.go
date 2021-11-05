@@ -22,6 +22,15 @@ func GuildMemberAdd(s *discordgo.Session, data *discordgo.GuildMemberAdd) {
 		log.Error(err)
 		return
 	}
+	/*
+		user := models.User{
+			DiscordID: data.User.ID,
+			Name:      data.User.Username,
+			Roles:     nil,
+		}
+		repositories.PersistUser(&user)
+	*/
+
 	if _, err := s.ChannelMessageSend(channel.ID, server.WelcomeMessage); err != nil {
 		log.Error(err)
 	}

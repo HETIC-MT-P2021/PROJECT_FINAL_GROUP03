@@ -10,7 +10,7 @@ import (
 
 func InitBirthdayReminderJob(session *discordgo.Session) {
 	task := gocron.NewScheduler(time.UTC)
-	if _, err := task.Every(1).Day().Do(services.RemindBirthdays, session); err != nil {
+	if _, err := task.Every(1).Day().At("13:00").Do(services.RemindBirthdays, session); err != nil {
 		log.Warn("could not launch birthday reminder job")
 	}
 	task.StartAsync()

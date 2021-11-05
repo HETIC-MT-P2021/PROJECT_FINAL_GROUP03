@@ -29,7 +29,13 @@ func RemindBirthdays(session *discordgo.Session) error {
 		for _, birthday := range birthdays {
 			if birthday.BirthDate.Before(time.Now()) && false == birthday.MessageSent {
 				if _, err := session.ChannelMessageSend(birthday.ChannelID, server.BirthdayMessage); err != nil {
-					return errors.New(fmt.Sprintf("Could not send birthday message to user id %s", birthday.UserID))
+					log.Info(fmt.Sprintf("Could not send birthday message to user id %s", birthday.UserID))
+					continue
+				} else {
+					birthday.MessageSent = true
+					if err := repositories.UpdateUserBirthday(&birthday); err != nil {
+						log.Info(fmt.Sprintf("Could not update user's birthday with user id %s", birthday.UserID))
+					}
 				}
 			}
 		}

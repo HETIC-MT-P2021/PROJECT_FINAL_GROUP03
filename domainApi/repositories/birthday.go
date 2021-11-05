@@ -17,6 +17,10 @@ func FindBirthdayByUserID(b *models.Birthday) error {
 	return database.Db.Debug().Where("user_id = ?", b.UserID).First(&b).Error
 }
 
+func UpdateUserBirthday(b *models.Birthday) error {
+	return database.Db.Debug().Model(&b).Where("user_id = ?", b.UserID).Update("message_sent", b.MessageSent).Error
+}
+
 func PersistBirthday(b *models.Birthday) error {
 	return database.Db.Debug().Create(b).Error
 }
