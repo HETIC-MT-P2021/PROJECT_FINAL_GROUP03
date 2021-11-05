@@ -11,6 +11,8 @@ import ForbiddenWordsForm from "../../components/forms/forbiddenWordsForm";
 const Server = () => {
     const [server, setServer] = useState<ServerInterface>();
     const [errorMessageText, setErrorMessageText] = useState("");
+    const [forbiddenWordsErrorMessageText, setForbiddenWordsErrorMessageText] = useState("");
+
     let params = {
         id: ""
     };
@@ -55,6 +57,22 @@ const Server = () => {
         }, 2000);
     };
 
+    const changeForbiddenWords = async (forbiddenWords: string) => {
+        let response = await http.patch(serverResourceUrl, {
+            "forbidden_words": forbiddenWords
+        });
+
+        setForbiddenWordsErrorMessageText(
+            response.status === 200
+                ? "nouvelle liste sauvegardée"
+                : "erreur lors du changement de liste de mots interdits"
+        );
+
+        setTimeout(() => {
+            setForbiddenWordsErrorMessageText("");
+        }, 2000);
+    }
+
     if (undefined === server?.name) {
         return (
             <div className="server-view">Loading server</div>
@@ -71,7 +89,8 @@ const Server = () => {
             />
             <p>{errorMessageText}</p>
             <br/>
-            <ForbiddenWordsForm forbidden_words={server.forbidden_words.split(",")} onvalidate={(e) => console.log(e)} />
+            <ForbiddenWordsForm forbidden_words={server.forbidden_words.split(",")} onvalidate={changeForbiddenWords} />
+            <p>{forbiddenWordsErrorMessageText}</p>
         </section>
     )
 };

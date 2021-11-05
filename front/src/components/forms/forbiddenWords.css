@@ -2,6 +2,11 @@
     color: white;
 }
 
+.forbidden-words {
+    max-height: 500px;
+    overflow-y: scroll;
+}
+
 .td-action {
     margin: 0 5px;
 }
