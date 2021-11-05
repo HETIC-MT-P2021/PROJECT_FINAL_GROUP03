@@ -9,44 +9,32 @@ const ForbiddenWordsForm = (props: {
 }) => {
     const [forbiddenWords, setForbiddenWords] = useState(props.forbidden_words);
 
-    const saveData = () => {
-        props.onvalidate(forbiddenWords.join(",") || "");
-    };
-
-    const addWord = () => {
-        setForbiddenWords(forbiddenWords.concat(""));
-    };
-
-    const deleteWord = (index: number) => {
-        const newArray = forbiddenWords;
+    const deleteWord = (index: number) => () => {
+        const newArray = [...forbiddenWords];
         newArray.splice(index, 1)
+        console.log(newArray)
         setForbiddenWords(newArray);
     };
 
     const replaceWord = (index: number, value: string) => {
-        let newArray = forbiddenWords;
+        let newArray = [...forbiddenWords];
         newArray[index] = value;
         setForbiddenWords(newArray);
     };
 
-    const wordsItems = forbiddenWords.map(
-        (word, index) => <ForbiddenWordItem key={index} word={word} index={index} onDelete={deleteWord} onEdit={replaceWord}/>
-    );
+    const saveData = () => {
+        const sanitizedList = forbiddenWords.filter(word => word.length > 1)
+        props.onvalidate(sanitizedList.join(",") || "");
+        setForbiddenWords(sanitizedList);
+    };
     
+    const addWord = () => {
+        setForbiddenWords(forbiddenWords.concat(""));
+    };
+
     return (
         <div className="forbidden-words">
             <h3>Mots interdits</h3>
-            <Table>
-                <thead>
-                    <tr>
-                        <th>Mot</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                 { wordsItems}
-                </tbody>
-            </Table>
             <div className="buttons-container">
                 <Button className="buttons-container__button" variant="primary" onClick={addWord}>
                     Nouveau
@@ -55,6 +43,21 @@ const ForbiddenWordsForm = (props: {
                     Enregistrer
                 </Button>
             </div>
+            <Table>
+                <thead>
+                    <tr>
+                        <th>Mot</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {
+                    forbiddenWords.map(
+                        (word, index) => <ForbiddenWordItem key={word} word={word} index={index} onDelete={deleteWord(index)} onEdit={replaceWord}/>
+                    )
+                }
+                </tbody>
+            </Table>
         </div>
     )
 };

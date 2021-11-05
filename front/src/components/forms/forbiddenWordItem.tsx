@@ -12,32 +12,31 @@ const ForbiddenWordItem = (props: {
     const [word, setWord] = useState(props.word);
     const [isEditMode, setEditMode] = useState(false);
 
-    const editWord = () => {
-        props.onEdit(index, word);
-    };
-
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setWord(event.currentTarget.value);
-        editWord();
     };
 
     const deleteWord = () => {
         props.onDelete(index);
     };
-
     let wordTempl = <td>{word}</td>;
+
+    const activateEditMode = () => {
+        setEditMode(true);
+    }
+    const deActivateEditMode = () => {
+        props.onEdit(index, word);
+        setEditMode(false);
+    }
+
     if(isEditMode) {
         wordTempl = <td><Form.Control
             type="text"
             value={word}
             placeholder="basic forbidden word"
             onChange={handleChange}
+            onBlur={deActivateEditMode}
         /></td>
-
-    }
-
-    const activateEditMode = () => {
-        setEditMode(true);
     }
 
     return (
