@@ -1,4 +1,4 @@
-package commands
+package cmd
 
 import (
 	"errors"
@@ -34,7 +34,6 @@ func (command BirthdayCommand) Execute() error {
 		"channel_id": command.gc.Message.ChannelID,
 		"birth_date": parsedDate.Format(time.RFC3339),
 	}
-	
 
 	_, err = helpers.PerformRequest(enum.CreateUserBirthdayRoute, enum.Post, data)
 	if err != nil {

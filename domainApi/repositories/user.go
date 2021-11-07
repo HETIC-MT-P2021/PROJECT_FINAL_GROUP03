@@ -1,8 +1,8 @@
 package repositories
 
 import (
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/database"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/models"
+	"github.com/JackMaarek/go-bot-utils/database"
+	"github.com/JackMaarek/go-bot-utils/models"
 )
 
 func PersistUser(u *models.User) error {

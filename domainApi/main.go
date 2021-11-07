@@ -2,11 +2,13 @@ package main
 
 import (
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/cron"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/database"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/discordApi"
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/handlers"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/router"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
+
+	"github.com/JackMaarek/go-bot-utils/connectors"
+	"github.com/JackMaarek/go-bot-utils/database"
 )
 
 func main() {
@@ -17,10 +19,12 @@ func main() {
 	database.Migrate()
 
 	// connect to discord
-	session, err := discordApi.InitializeConnection()
+	session, err := connectors.InitializeBot()
 	if err != nil {
 		log.Fatal("Could not connect to discord : ", err)
 	}
+	session.AddHandler(handlers.ForbiddenMessageHandler)
+	session.AddHandler(handlers.GuildMemberAdd)
 
 	// Cron jobs
 	cron.InitBirthdayReminderJob(session)

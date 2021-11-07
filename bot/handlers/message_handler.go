@@ -1,10 +1,13 @@
 package handlers
 
 import (
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/bot/commands"
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/bot/cmd"
 	"github.com/bwmarrin/discordgo"
-	log "github.com/sirupsen/logrus"
 	"strings"
+
+	log "github.com/sirupsen/logrus"
+
+	"github.com/JackMaarek/go-bot-utils/interfaces"
 )
 
 func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
@@ -15,7 +18,7 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	// Check that the message is addressed to the bot
 	if !strings.HasPrefix(strings.ToLower(m.Content), "assistant") {
-		log.Info("commmand") 
+		log.Info("commmand")
 		return
 	}
 
@@ -24,14 +27,14 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
-	genericCommand := commands.GenericCommand{
+	genericCommand := cmd.GenericCommand{
 		Session:     s,
 		Message:     m,
 		CommandType: params[1],
 	}
 
 	cmd, err := genericCommand.Build()
-	log.Info("commmand: ", cmd) 		
+	log.Info("commmand: ", cmd)
 	if err != nil {
 		_, err := s.ChannelMessageSend(m.ChannelID, "Je n'ai pas réussi à trouver ce qu'il vous fallait.")
 		if err != nil {
@@ -42,7 +45,8 @@ func MessageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	if cmd == nil {
 		return
 	}
-	if err = cmd.Execute(); err != nil {
+
+	if err = interfaces.Command.Execute(cmd); err != nil {
 		return
 	}
 }

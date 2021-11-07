@@ -3,11 +3,12 @@ package services
 import (
 	"errors"
 	"fmt"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/models"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/repositories"
 	"github.com/bwmarrin/discordgo"
 	log "github.com/sirupsen/logrus"
 	"time"
+
+	"github.com/JackMaarek/go-bot-utils/models"
 )
 
 func RemindBirthdays(session *discordgo.Session) error {
