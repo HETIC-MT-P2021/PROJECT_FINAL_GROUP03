@@ -1,20 +1,21 @@
 package services
 
 import (
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/frontApi/enum"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/frontApi/models"
+	"github.com/JackMaarek/go-bot-utils/enum"
+	"github.com/JackMaarek/go-bot-utils/helpers"
+	"github.com/JackMaarek/go-bot-utils/models"
 	log "github.com/sirupsen/logrus"
 )
 
 func GetRoles(roles *[]models.Role) error {
-	response, err := PerformApiRequest(enum.RolesResourceRoute, "GET", "")
+	response, err := helpers.PerformRequest(enum.RoleResourceRoute, "GET", "")
 	if err != nil {
 		log.Error(err)
 	}
 	if response.StatusCode != 200 {
 		log.Error("Error occured while fetching roles")
 	}
-	err = DeserializeResponseFromObject(response.Body, roles)
+	err = helpers.DeserializeResponseFromObject(response.Body, roles)
 	if err != nil {
 		log.Error("could not deserialize roles object")
 	}
@@ -23,8 +24,8 @@ func GetRoles(roles *[]models.Role) error {
 }
 
 func UpdateRoleById(id string, r *models.Role) error {
-	url := enum.RolesResourceRoute + "/" + id
-	response, err := PerformApiRequest(url, "PUT", r)
+	url := enum.RoleResourceRoute + "/" + id
+	response, err := helpers.PerformRequest(url, "PUT", r)
 	if err != nil {
 		log.Error(err)
 	}
@@ -36,7 +37,7 @@ func UpdateRoleById(id string, r *models.Role) error {
 }
 
 func CreateRole(r *models.Role) error {
-	response, err := PerformApiRequest(enum.RolesResourceRoute, "POST", r)
+	response, err := helpers.PerformRequest(enum.RoleResourceRoute, "POST", r)
 	if err != nil {
 		log.Error(err)
 	}
@@ -48,8 +49,8 @@ func CreateRole(r *models.Role) error {
 }
 
 func DeleteRole(id string) error {
-	url := enum.RolesResourceRoute + "/" + id
-	response, err := PerformApiRequest(url, "DELETE", "")
+	url := enum.RoleResourceRoute + "/" + id
+	response, err := helpers.PerformRequest(url, "DELETE", "")
 	if err != nil {
 		log.Error(err)
 	}

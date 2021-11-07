@@ -1,4 +1,4 @@
-package discordApi
+package bot_handlers
 
 import (
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/models"

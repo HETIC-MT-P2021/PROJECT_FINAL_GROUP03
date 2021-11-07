@@ -2,7 +2,6 @@ package router
 
 import (
 	"fmt"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/frontApi/env"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
@@ -11,6 +10,8 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/JackMaarek/go-bot-utils/env"
 )
 
 func Run(r *gin.Engine) {

@@ -5,11 +5,12 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/bot/enum"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/bot/helpers"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/bot/models"
 	"github.com/bwmarrin/discordgo"
 	log "github.com/sirupsen/logrus"
+
+	"github.com/JackMaarek/go-bot-utils/enum"
+	"github.com/JackMaarek/go-bot-utils/helpers"
+	"github.com/JackMaarek/go-bot-utils/models"
 )
 
 type WelcomeCommand struct {

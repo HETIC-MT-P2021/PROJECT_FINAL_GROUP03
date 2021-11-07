@@ -1,12 +1,13 @@
 package controllers
 
 import (
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/frontApi/models"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/frontApi/services"
 	"github.com/bwmarrin/discordgo"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"net/http"
+
+	"github.com/JackMaarek/go-bot-utils/models"
 )
 
 func GetServers(c *gin.Context) {
