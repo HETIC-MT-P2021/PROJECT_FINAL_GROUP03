@@ -2,9 +2,10 @@ package controllers
 
 import (
 	"fmt"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/models"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/repositories"
+	"github.com/JackMaarek/go-bot-utils/models"
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 )
 
@@ -19,11 +20,14 @@ func ChangeWelcomeMessage(c *gin.Context) {
 		DiscordID: server.DiscordID,
 	}
 	if err := repositories.FindServerByDiscordID(&foundServer); err != nil {
+		log.Info("Server with id %s not found", server.DiscordID)
 		c.JSON(http.StatusNotFound, fmt.Sprintf("Server with id %s not found", server.DiscordID))
 		return
 	}
 
 	if err := repositories.UpdateServerMessage(&server); err != nil {
+		log.Info("couldnt update server message, please try again or contact support")
+
 		c.JSON(http.StatusInternalServerError, "couldnt update server message, please try again or contact support")
 		return
 	}

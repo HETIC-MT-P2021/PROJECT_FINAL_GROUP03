@@ -1,16 +1,20 @@
 package main
 
 import (
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/bot/connectors"
-	log "github.com/sirupsen/logrus"
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/bot/handlers"
 	"os"
 	"os/signal"
 	"syscall"
+
+	log "github.com/sirupsen/logrus"
+
+	"github.com/JackMaarek/go-bot-utils/connectors"
 )
 
 func main() {
 	// init bot connection
 	dg, err := connectors.InitializeBot()
+	dg.AddHandler(handlers.MessageCreate)
 
 	if err != nil {
 		log.Fatal(err)

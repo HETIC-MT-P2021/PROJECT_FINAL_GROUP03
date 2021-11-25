@@ -2,13 +2,15 @@ package services
 
 import (
 	"encoding/json"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/frontApi/enum"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/frontApi/env"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/frontApi/models"
 	log "github.com/sirupsen/logrus"
 	"io/ioutil"
 	"net/http"
 	"strings"
+
+	"github.com/JackMaarek/go-bot-utils/enum"
+	"github.com/JackMaarek/go-bot-utils/env"
+	"github.com/JackMaarek/go-bot-utils/helpers"
+	"github.com/JackMaarek/go-bot-utils/models"
 )
 
 func GetBotServers() ([]models.Server, error) {
@@ -39,6 +41,7 @@ func GetBotServers() ([]models.Server, error) {
 func GetBotServerById(id string) (models.Server, error) {
 	var server models.Server
 	client := &http.Client{}
+	log.Info(env.GetVariable("DOMAIN_API_URL"))
 
 	r, err := http.NewRequest("GET", env.GetVariable("DOMAIN_API_URL")+"/servers/"+id, strings.NewReader(""))
 	if err != nil {
@@ -68,7 +71,7 @@ func ChangeWelcomeMessage(serverID, welcomeMessage string) error {
 	}
 
 	client := &http.Client{}
-	r, err := http.NewRequest("POST", env.GetVariable("DOMAIN_API_URL")+"/commands/change-welcome-message", strings.NewReader(string(payload)))
+	r, err := http.NewRequest("POST", env.GetVariable("DOMAIN_API_URL")+"/cmd/change-welcome-message", strings.NewReader(string(payload)))
 	if err != nil {
 		return err
 	}
@@ -79,7 +82,7 @@ func ChangeWelcomeMessage(serverID, welcomeMessage string) error {
 }
 
 func ChangeBirthdayMessage(serverID string, birthdayMessage string) error {
-	response, err := PerformApiRequest(enum.ChangeBirthdayMessageRoute, enum.Post, models.ChangeBirthdayMessage{
+	response, err := helpers.PerformRequest(enum.ChangeBirthdayMessageRoute, enum.Post, models.ChangeBirthdayMessage{
 		BirthdayMessage: birthdayMessage,
 		DiscordID:       serverID,
 	})
@@ -101,7 +104,7 @@ func ChangeForbiddenWords(serverID, wordsList string) error {
 	}
 
 	client := &http.Client{}
-	r, err := http.NewRequest("POST", env.GetVariable("DOMAIN_API_URL")+"/commands/change-forbidden-words", strings.NewReader(string(payload)))
+	r, err := http.NewRequest("POST", env.GetVariable("DOMAIN_API_URL")+"/cmd/change-forbidden-words", strings.NewReader(string(payload)))
 	if err != nil {
 		return err
 	}

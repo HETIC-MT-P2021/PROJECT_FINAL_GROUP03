@@ -1,12 +1,14 @@
-package commands
+package cmd
 
 import (
 	"errors"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/bot/enum"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/bot/helpers"
-	log "github.com/sirupsen/logrus"
 	"strings"
 	"time"
+
+	log "github.com/sirupsen/logrus"
+
+	"github.com/JackMaarek/go-bot-utils/enum"
+	"github.com/JackMaarek/go-bot-utils/helpers"
 )
 
 type BirthdayCommand struct {
@@ -32,7 +34,6 @@ func (command BirthdayCommand) Execute() error {
 		"channel_id": command.gc.Message.ChannelID,
 		"birth_date": parsedDate.Format(time.RFC3339),
 	}
-	
 
 	_, err = helpers.PerformRequest(enum.CreateUserBirthdayRoute, enum.Post, data)
 	if err != nil {

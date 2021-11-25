@@ -1,9 +1,11 @@
-package commands
+package cmd
 
 import (
 	"errors"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/bot/interfaces"
+
 	"github.com/bwmarrin/discordgo"
+
+	"github.com/JackMaarek/go-bot-utils/interfaces"
 )
 
 type GenericCommand struct {

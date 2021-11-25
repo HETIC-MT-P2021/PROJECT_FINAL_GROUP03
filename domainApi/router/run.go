@@ -2,7 +2,7 @@ package router
 
 import (
 	"fmt"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/env"
+	"github.com/JackMaarek/go-bot-utils/env"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"

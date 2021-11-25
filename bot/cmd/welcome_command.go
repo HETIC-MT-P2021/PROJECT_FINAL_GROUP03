@@ -1,15 +1,16 @@
-package commands
+package cmd
 
 import (
 	"encoding/json"
 	"fmt"
 	"strings"
 
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/bot/enum"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/bot/helpers"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/bot/models"
 	"github.com/bwmarrin/discordgo"
 	log "github.com/sirupsen/logrus"
+
+	"github.com/JackMaarek/go-bot-utils/enum"
+	"github.com/JackMaarek/go-bot-utils/helpers"
+	"github.com/JackMaarek/go-bot-utils/models"
 )
 
 type WelcomeCommand struct {
@@ -33,14 +34,14 @@ func (command WelcomeCommand) Execute() error {
 		log.Error("Message too short")
 		return nil
 	}
-	
+
 	// Si c'est une commande, regarde si la personne est propriétaire ou admin ?
 	// if isAdmin, err := helpers.MemberHasPermission(command.gc.Session.(*discordgo.Session), command.gc.Message.GuildID, command.gc.Message.Author.ID, discordgo.PermissionAdministrator); err != nil || !isAdmin {
 	// 	// Si pas admin --> niksamer
 	// 	log.Error("You are not authorized")
 	// 	return nil
 	// }
-	
+
 	// Si admin et commande existe, on dispatch PAS mais on envoit à l'API (domainAPI) (IsCommandExist)
 	payload, err := json.Marshal(models.ChangeWelcomeMessageForm{WelcomeMessage: sentence, DiscordID: command.gc.Message.GuildID})
 	if err != nil {

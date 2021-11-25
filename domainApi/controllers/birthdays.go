@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"fmt"
-	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/models"
 	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/repositories"
+	"github.com/JackMaarek/go-bot-utils/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
