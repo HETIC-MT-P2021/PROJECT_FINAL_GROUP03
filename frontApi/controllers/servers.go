@@ -75,12 +75,14 @@ func GetServerByID(c *gin.Context) {
 
 	userGuild, err := services.GetUserGuildByID(session, serverID)
 	if err != nil {
+		log.Info("couldnt get user guild, please try again or contact support")
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
 	botGuild, err := services.GetBotServerById(serverID)
 	if err != nil {
+		log.Info("couldnt get server, please try again or contact support")
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}

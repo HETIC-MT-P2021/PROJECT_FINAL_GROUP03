@@ -4,6 +4,8 @@ github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back v0.0.0-20211001135454-3dec8
 github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/back v0.0.0-20211001135454-3dec83d8288b/go.mod h1:eDuMdj9I+1KYdGLBHXjBF8MsJX0XiasKy2aYkRr/a6U=
 github.com/JackMaarek/go-bot-utils v0.1.0 h1:NX5+BHc2Tf4L7+GDciWj0VEENtUV+xgreaCliQKIiTY=
 github.com/JackMaarek/go-bot-utils v0.1.0/go.mod h1:2IhF0zYf51sKxbORQBT5e3QclsHX6Lw8FYjI/XUn7B8=
+github.com/JackMaarek/go-bot-utils v0.3.0 h1:E2j41PkwfKxnk1/Pd70K+7LE9w0qA9GY+ygQN8ur/SA=
+github.com/JackMaarek/go-bot-utils v0.3.0/go.mod h1:2IhF0zYf51sKxbORQBT5e3QclsHX6Lw8FYjI/XUn7B8=
 github.com/Masterminds/semver/v3 v3.1.1 h1:hLg3sBzpNErnxhQtUy/mmLR2I9foDujNK030IGemrRc=
 github.com/Masterminds/semver/v3 v3.1.1/go.mod h1:VPu/7SZ7ePZ3QOrcuXROw5FAcLl4a0cBrbBpGY/8hQs=
 github.com/bwmarrin/discordgo v0.23.2 h1:BzrtTktixGHIu9Tt7dEE6diysEF9HWnXeHuoJEt2fH4=

@@ -41,6 +41,7 @@ func GetBotServers() ([]models.Server, error) {
 func GetBotServerById(id string) (models.Server, error) {
 	var server models.Server
 	client := &http.Client{}
+	log.Info(env.GetVariable("DOMAIN_API_URL"))
 
 	r, err := http.NewRequest("GET", env.GetVariable("DOMAIN_API_URL")+"/servers/"+id, strings.NewReader(""))
 	if err != nil {
