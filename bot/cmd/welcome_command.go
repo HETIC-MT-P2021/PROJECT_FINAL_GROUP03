@@ -51,7 +51,10 @@ func (command WelcomeCommand) Execute() error {
 
 	_, err = helpers.PerformRequest(enum.ChangeWelcomeMessageRoute, enum.Post, payload)
 	if err != nil {
-		command.gc.Session.(*discordgo.Session).ChannelMessageSend(command.gc.Message.ChannelID, "Je n'ai pas réussi à changer le message de bienvenue.")
+		if _, err := command.gc.Session.(*discordgo.Session).ChannelMessageSend(command.gc.Message.ChannelID, "Je n'ai pas réussi à changer le message de bienvenue."); err != nil {
+			log.Error(err)
+			return err
+		}
 		log.Error(err)
 		return err
 	}

@@ -28,7 +28,7 @@ func RemindBirthdays(session *discordgo.Session) error {
 			continue
 		}
 		for _, birthday := range birthdays {
-			if birthday.BirthDate.Before(time.Now()) && false == birthday.MessageSent {
+			if birthday.BirthDate.Before(time.Now()) && !birthday.MessageSent {
 				if _, err := session.ChannelMessageSend(birthday.ChannelID, server.BirthdayMessage); err != nil {
 					log.Info(fmt.Sprintf("Could not send birthday message to user id %s", birthday.UserID))
 					continue

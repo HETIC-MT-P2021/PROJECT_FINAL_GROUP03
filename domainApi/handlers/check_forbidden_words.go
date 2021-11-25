@@ -30,7 +30,9 @@ func ForbiddenMessageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 				log.Error("moderation issue on message : ", m.ID, err)
 			}
 
-			s.ChannelMessageSend(m.ChannelID, m.Author.Username+" veuillez vous calmer, paix et amour ❤")
+			if _, err := s.ChannelMessageSend(m.ChannelID, m.Author.Username+" veuillez vous calmer, paix et amour ❤"); err != nil {
+				log.Error(err)
+			}
 
 			return
 		}
