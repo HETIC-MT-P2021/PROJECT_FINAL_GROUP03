@@ -4,11 +4,11 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'back/**'
+      - 'bot/**'
+      - 'frontApi/**'
+      - 'domainApi/**'
   pull_request:
     branches: [ main, develop ]
-    paths:
-      - 'back/**'
 
 jobs:
 
@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GO111MODULE: on
+    strategy:
+      matrix: { dir: [ "./frontApi", "./domainApi", "./bot" ] }
 
     steps:
       - name: Set up Go 1.17
@@ -31,11 +33,11 @@ jobs:
       - name: Lint with golangci
         uses: golangci/golangci-lint-action@v2.5.2
         with:
-          working-directory: ./back
+          working-directory: ${{ matrix.dir }}
           skip-go-installation: true
 
       - name: Get dependencies
-        working-directory: ./back
+        working-directory: ${{ matrix.dir }}
         run: |
           go get -v -t -d ./...
           if [ -f Gopkg.toml ]; then
@@ -44,7 +46,7 @@ jobs:
           fi
 
       - name: Build
-        working-directory: ./back
+        working-directory: ${{ matrix.dir }}
         run: go build -v .
 
       # Add it when tests will be written
