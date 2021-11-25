@@ -9,8 +9,6 @@ on:
       - 'domainApi/**'
   pull_request:
     branches: [ main, develop ]
-    paths:
-      - 'back/**'
 
 jobs:
 
