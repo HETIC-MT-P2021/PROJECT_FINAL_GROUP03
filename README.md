@@ -32,13 +32,13 @@ the following make commands are available :
 
 ## Bot commands
 
-Once the bot is in the discord server, you can address a message to the bot by beginning your message with `/admin`
+Once the bot is in the discord server, you can address a message to the bot by beginning your message with `assistant`
 
 <details>
   <summary><b>Login command</b></summary>
 
   ```
-    /admin login
+    assistant login
   ```
 
   You will receive a private message containing a link to the front-end interface, allowing you to manage your server.
