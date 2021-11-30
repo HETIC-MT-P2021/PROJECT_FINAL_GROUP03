@@ -9,6 +9,7 @@ import (
 	"github.com/JackMaarek/go-bot-utils/models"
 )
 
+// ForbiddenMessageHandler receives new message informations and checks if a forbidden word is in it
 func ForbiddenMessageHandler(s *discordgo.Session, m *discordgo.MessageCreate) {
 	// avoid moderating bot messages
 	if m.Author.ID == s.State.User.ID {

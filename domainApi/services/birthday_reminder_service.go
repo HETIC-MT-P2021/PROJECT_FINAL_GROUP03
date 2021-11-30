@@ -11,6 +11,7 @@ import (
 	"github.com/JackMaarek/go-bot-utils/models"
 )
 
+// RemindBirthdays looks for birthdays in all bot servers and sends birthday messages for concerned users
 func RemindBirthdays(session *discordgo.Session) error {
 	var servers []models.Server
 	var birthdays []models.Birthday

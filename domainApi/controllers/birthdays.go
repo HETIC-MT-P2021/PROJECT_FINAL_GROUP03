@@ -8,6 +8,7 @@ import (
 	"net/http"
 )
 
+// CreateUserBirthday receives informations for user birthday and saves it to database
 func CreateUserBirthday(c *gin.Context) {
 	var birthday models.Birthday
 	if err := c.ShouldBindJSON(&birthday); err != nil {

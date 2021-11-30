@@ -8,6 +8,7 @@ import (
 	"net/http"
 )
 
+// ChangeWelcomeMessage is the controller used to update the guild's welcome message
 func ChangeWelcomeMessage(c *gin.Context) {
 	var server models.Server
 	if err := c.ShouldBindJSON(&server); err != nil {
@@ -31,6 +32,7 @@ func ChangeWelcomeMessage(c *gin.Context) {
 	c.JSON(http.StatusOK, "server message updated successfully")
 }
 
+// ChangeBirthdayMessage is the controller used to change the birthday message sent to users on their birthday
 func ChangeBirthdayMessage(c *gin.Context) {
 	var server models.Server
 	if err := c.ShouldBindJSON(&server); err != nil {
@@ -54,6 +56,7 @@ func ChangeBirthdayMessage(c *gin.Context) {
 	c.JSON(http.StatusOK, "Birthday message updated successfully")
 }
 
+// ChangeForbiddenWordsList updates the list of moderated words
 func ChangeForbiddenWordsList(c *gin.Context) {
 	var server models.Server
 
@@ -79,6 +82,7 @@ func ChangeForbiddenWordsList(c *gin.Context) {
 	c.JSON(http.StatusOK, "server forbidden words updated successfully")
 }
 
+// GetAll returns the bot servers
 func GetAll(c *gin.Context) {
 	var servers []models.Server
 
@@ -90,6 +94,7 @@ func GetAll(c *gin.Context) {
 	c.JSON(http.StatusOK, servers)
 }
 
+// GetByID returns a bot server detailed informations
 func GetByID(c *gin.Context) {
 	id := c.Param("id")
 	server := models.Server{

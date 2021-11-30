@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+// InitBirthdayReminderJob set up a cron job to check if it's someone's birthday today
 func InitBirthdayReminderJob(session *discordgo.Session) {
 	task := gocron.NewScheduler(time.UTC)
 	if _, err := task.Every(1).Day().At("13:00").Do(services.RemindBirthdays, session); err != nil {

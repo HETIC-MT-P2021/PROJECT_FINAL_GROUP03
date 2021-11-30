@@ -1,6 +1,15 @@
 package handlers
 
-/*func checkForGuilds(s *discordgo.Session) {
+import (
+	"github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/domainApi/repositories"
+	"github.com/bwmarrin/discordgo"
+	log "github.com/sirupsen/logrus"
+
+	"github.com/JackMaarek/go-bot-utils/models"
+)
+
+// CheckForGuilds updates bot guilds list
+func CheckForGuilds(s *discordgo.Session) {
 	// Get guilds
 	guilds, err := s.UserGuilds(100, "", "")
 	if err != nil {
@@ -22,4 +31,3 @@ package handlers
 		}
 	}
 }
-*/

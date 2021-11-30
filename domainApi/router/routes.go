@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Initialize all routes for the server
 func Initialize(r *gin.Engine) {
 	api := r.Group("/api")
 	v1 := api.Group("/v1")
