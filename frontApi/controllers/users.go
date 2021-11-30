@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+// GetUser returns current user informations
 func GetUser(c *gin.Context) {
 	session, err := services.GetUserSession(c)
 	if err != nil {

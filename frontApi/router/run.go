@@ -14,6 +14,7 @@ import (
 	"github.com/JackMaarek/go-bot-utils/env"
 )
 
+// Run the API server
 func Run(r *gin.Engine) {
 	configureCORS(r)
 
@@ -34,6 +35,7 @@ func consume(ch <-chan os.Signal) os.Signal {
 	return <-ch
 }
 
+// configureCORS for the API
 func configureCORS(r *gin.Engine) {
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
