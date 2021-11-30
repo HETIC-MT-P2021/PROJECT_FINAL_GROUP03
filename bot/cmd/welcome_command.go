@@ -13,10 +13,12 @@ import (
 	"github.com/JackMaarek/go-bot-utils/models"
 )
 
+// WelcomeCommand is a command to change the welcome message, sent to each guild new user
 type WelcomeCommand struct {
 	gc *GenericCommand
 }
 
+// Execute the welcome message command to change guild's welcome message
 func (command WelcomeCommand) Execute() error {
 	params := strings.Split(command.gc.Message.Content, " ")
 	log.Info("param: ", params[1])
