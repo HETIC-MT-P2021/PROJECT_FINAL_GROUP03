@@ -23,6 +23,13 @@ func (gc *GenericCommand) Build() (interfaces.Command, error) {
 
 	case "set-welcome_message":
 		return WelcomeCommand{gc: gc}, nil
+
+	case "help":
+		return HelpCommand{gc: gc}, nil
+
+	case "login":
+		return LoginCommand{gc: gc}, nil
 	}
+
 	return nil, errors.New("Could not find command")
 }
