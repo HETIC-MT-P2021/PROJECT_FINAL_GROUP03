@@ -41,7 +41,40 @@ Once the bot is in the discord server, you can address a message to the bot by b
     assistant login
   ```
 
-  You will receive a private message containing a link to the front-end interface, allowing you to manage your server.
+  You will receive a message containing a link to the front-end interface, allowing you to manage your server.
+</details>
+
+
+<details>
+  <summary><b>Help command</b></summary>
+
+  ```
+    assistant help
+  ```
+
+  You will receive a message containing instructions for all bot commands.
+</details>
+
+
+<details>
+  <summary><b>Welcome message command</b></summary>
+
+  ```
+    assistant set-welcome_message <string>
+  ```
+
+  Change the welcome message sent to every new user of the guild.
+</details>
+
+
+<details>
+  <summary><b>Birthday command</b></summary>
+
+  ```
+    assistant set-birthday <date>
+  ```
+
+  Tell  the bot when is your birthday, in order for it to tell you a happy birthday!
 </details>
 
 ## Contributing
