@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontapi-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontapi
+  template:
+    metadata:
+      labels:
+        app: frontapi
+    spec:
+      containers:
+        - name: frontapi
+          image: jackojack/domain-api:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8001
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: postgres-usr
+            - name: PORT
+              value: "8001"
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: postgres-password
+            - name: DATABASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: db-url
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontapi-service
+spec:
+  type: ClusterIP
+  selector:
+    app: frontapi-service
+  ports:
+    - protocol: TCP
+      port: 8001
+      targetPort: 8001

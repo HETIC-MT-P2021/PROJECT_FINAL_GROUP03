@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: domainapi-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: domainapi
+  template:
+    metadata:
+      labels:
+        app: domainapi
+    spec:
+      containers:
+        - name: domainapi
+          image: jackojack/domain-api:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: postgres-usr
+            - name: PORT
+              value: "8000"
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: postgres-password
+            - name: DATABASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: db-url
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: domainapi-service
+spec:
+  type: ClusterIP
+  selector:
+    app: domainapi-service
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
