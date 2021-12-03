@@ -11,10 +11,12 @@ import (
 	"github.com/JackMaarek/go-bot-utils/helpers"
 )
 
+// BirthdayCommand holds needed informations to change the message author's birth date
 type BirthdayCommand struct {
 	gc *GenericCommand
 }
 
+// Execute the birthday command to set birth date for message author
 func (command BirthdayCommand) Execute() error {
 	params := strings.Split(command.gc.Message.Content, " ")
 

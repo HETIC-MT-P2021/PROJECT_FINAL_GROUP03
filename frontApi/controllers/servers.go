@@ -10,6 +10,7 @@ import (
 	"github.com/JackMaarek/go-bot-utils/models"
 )
 
+// GetServers get bot servers and user servers, and mix the result to get user admin servers in which the bot is added
 func GetServers(c *gin.Context) {
 	session, err := services.GetUserSession(c)
 	if err != nil {
@@ -60,6 +61,7 @@ func GetServers(c *gin.Context) {
 	c.JSON(http.StatusOK, finalServers)
 }
 
+// GetServerByID returns server details by its id
 func GetServerByID(c *gin.Context) {
 
 	serverID := c.Param("id")
@@ -97,6 +99,7 @@ func GetServerByID(c *gin.Context) {
 	})
 }
 
+// PatchServer is the controller to make a patch request for a server
 func PatchServer(c *gin.Context) {
 	serverID := c.Param("id")
 	var payload models.Server

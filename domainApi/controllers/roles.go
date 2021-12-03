@@ -9,6 +9,7 @@ import (
 	"net/http"
 )
 
+// GetRoles is used to get all guild roles
 func GetRoles(c *gin.Context) {
 	var roles []models.Role
 	if err := repositories.FindAllRoles(&roles); err != nil {
@@ -19,6 +20,7 @@ func GetRoles(c *gin.Context) {
 	c.JSON(http.StatusOK, roles)
 }
 
+// CreateRole is the controller called to create a new guild role
 func CreateRole(c *gin.Context) {
 	var role models.Role
 	if err := c.ShouldBindJSON(&role); err != nil {
@@ -34,6 +36,7 @@ func CreateRole(c *gin.Context) {
 	c.JSON(http.StatusOK, fmt.Sprintf("Role %s created successfully", role.Name))
 }
 
+// UpdateRoleById is the controller used to update a guild role
 func UpdateRoleById(c *gin.Context) {
 	var role models.Role
 	if err := c.ShouldBindJSON(&role); err != nil {
@@ -50,6 +53,7 @@ func UpdateRoleById(c *gin.Context) {
 	c.JSON(http.StatusOK, "Role updated successfully")
 }
 
+// DeleteRoleById is the controller used to delete one of the guild's role
 func DeleteRoleById(c *gin.Context) {
 	var role models.Role
 	role.Id = utils.ConvertStringToInt(c.Param("id"))

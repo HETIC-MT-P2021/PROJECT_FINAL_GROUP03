@@ -3,7 +3,7 @@ module github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/frontApi
 go 1.15
 
 require (
-	github.com/JackMaarek/go-bot-utils v0.3.0
+	github.com/JackMaarek/go-bot-utils v0.4.0
 	github.com/bwmarrin/discordgo v0.23.2
 	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.7.4

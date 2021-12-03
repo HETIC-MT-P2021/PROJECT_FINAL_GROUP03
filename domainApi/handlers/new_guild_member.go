@@ -8,6 +8,7 @@ import (
 	"github.com/JackMaarek/go-bot-utils/models"
 )
 
+// GuildMemberAdd is the handler called when a new user arrives in the guild, in order to send the welcome message
 func GuildMemberAdd(s *discordgo.Session, data *discordgo.GuildMemberAdd) {
 	// Get welcome message and send message with it
 	server := models.Server{

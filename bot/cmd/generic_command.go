@@ -8,6 +8,7 @@ import (
 	"github.com/JackMaarek/go-bot-utils/interfaces"
 )
 
+// GenericCommand is the global struct to hold all commands payloads
 type GenericCommand struct {
 	Session     interfaces.Discord
 	Message     *discordgo.MessageCreate

@@ -7,6 +7,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+// GetUserSession use the authorization header to create a discord session for the user
 func GetUserSession(c *gin.Context) (*discordgo.Session, error) {
 	accessToken := c.GetHeader("Authorization")
 
@@ -17,6 +18,7 @@ func GetUserSession(c *gin.Context) (*discordgo.Session, error) {
 	return discordgo.New("Bearer " + accessToken)
 }
 
+// GetUserGuildByID returns user guild in order to know if user is member of a specific guild
 func GetUserGuildByID(session *discordgo.Session, guildID string) (*discordgo.UserGuild, error) {
 	var userGuild *discordgo.UserGuild
 	userGuilds, err := session.UserGuilds(100, "", "")
@@ -34,6 +36,7 @@ func GetUserGuildByID(session *discordgo.Session, guildID string) (*discordgo.Us
 	return userGuild, nil
 }
 
+// MemberHasPermission check if user has the permission given as parameter for the given guild id
 func MemberHasPermission(s *discordgo.Session, guildID string, permission int64) (bool, error) {
 	user := GetUser(s)
 
@@ -59,6 +62,7 @@ func MemberHasPermission(s *discordgo.Session, guildID string, permission int64)
 	return false, nil
 }
 
+// GetUser retrieves the discord user struct for a given session
 func GetUser(session *discordgo.Session) *discordgo.User {
 	user, err := session.User("@me")
 	if err != nil {
