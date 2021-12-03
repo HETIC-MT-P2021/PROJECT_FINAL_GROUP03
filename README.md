@@ -10,6 +10,12 @@
 
 ![Heroku](https://pyheroku-badge.herokuapp.com/?app=finalprojectgroup3-prod&style=flat)
 
+## Context
+
+Manage and automate tasks in your discord server with our app :
+
+![demo help](.wiki/demo-help.gif)
+![demo help](.wiki/demo-forbidden-words.gif)
 
 ## Setup
 
