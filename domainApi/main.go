@@ -23,9 +23,9 @@ func main() {
 	if err != nil {
 		log.Fatal("Could not connect to discord : ", err)
 	}
+	handlers.CheckForGuilds(session)
 	session.AddHandler(handlers.ForbiddenMessageHandler)
 	session.AddHandler(handlers.GuildMemberAdd)
-
 	// Cron jobs
 	cron.InitBirthdayReminderJob(session)
 
