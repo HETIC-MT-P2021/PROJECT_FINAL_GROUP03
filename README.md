@@ -36,6 +36,10 @@ the following make commands are available :
 | **make init**| same as start, but also copy files |
 | **make copy-files**| copy env files to the right directories, concat global env to other env files |
 
+## Documentation
+
+Please refer to the [wiki](https://github.com/HETIC-MT-P2021/PROJECT_FINAL_GROUP03/wiki/) for more informations.
+
 ## Bot commands
 
 Once the bot is in the discord server, you can address a message to the bot by beginning your message with `assistant`
